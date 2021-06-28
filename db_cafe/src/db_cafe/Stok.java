@@ -7,6 +7,8 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -211,7 +213,7 @@ public class Stok extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "NAMA BARANG", "JUMLAH BARANG"
             }
         ));
         jScrollPane1.setViewportView(tbl_stok);
@@ -304,6 +306,14 @@ public class Stok extends javax.swing.JFrame {
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         // TODO add your handling code here:
+        JFrame frame = new JFrame("EXIT");
+        if(JOptionPane.showConfirmDialog(frame,"Confirm if you want LOGOUT", "EXIT",
+                JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+        {
+            Login lg = new Login();
+            lg.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void txt_jumlahbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumlahbarangActionPerformed

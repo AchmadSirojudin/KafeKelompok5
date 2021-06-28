@@ -7,6 +7,8 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -231,6 +233,11 @@ public class kelolaproduk extends javax.swing.JFrame {
         btn_logout.setBackground(new java.awt.Color(0, 0, 0));
         btn_logout.setForeground(new java.awt.Color(255, 0, 0));
         btn_logout.setText("LOG OUT");
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 3, 24)); // NOI18N
         jLabel2.setText("LOGO");
@@ -320,6 +327,18 @@ public class kelolaproduk extends javax.swing.JFrame {
         mn.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_homeActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        // TODO add your handling code here:
+        JFrame frame = new JFrame("EXIT");
+        if(JOptionPane.showConfirmDialog(frame,"Confirm if you want LOGOUT", "EXIT",
+                JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+        {
+            Login lg = new Login();
+            lg.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
      * @param args the command line arguments
