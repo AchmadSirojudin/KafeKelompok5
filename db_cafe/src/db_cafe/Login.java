@@ -5,6 +5,16 @@
  */
 package db_cafe;
 
+import java.awt.Dimension;
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eldi
@@ -14,8 +24,21 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    Connection con;
     public Login() {
+        db_cafe db = new db_cafe();
+        db.koneksi();
+        con = db.con;
         initComponents();
+        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        if (frameSize.height > screenSize.height){
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width){
+            frameSize.width = screenSize.width;
+        }this.setLocation((screenSize.width - frameSize.width) /  2, 
+              (screenSize.height - frameSize.height) / 2);
     }
 
     /**
@@ -131,9 +154,25 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         // TODO add your handling code here:
-        menu mn = new menu();
-        mn.setVisible(true);
-        dispose();
+       try {
+            java.sql.Statement stm = con.createStatement();
+	    String sql = "SELECT * FROM pegawai WHERE username='"+txt_id.getText()+"' AND password='"+txt_password.getText()+"'";
+            ResultSet rs = stm.executeQuery(sql);
+            if(rs.next()){
+                if(txt_id.getText().equals(rs.getString("username")) && txt_password.getText().equals(rs.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "berhasil login");
+                    menu lg = new menu();
+                    lg.setVisible(true);
+                    dispose();
+                }
+            }else{
+                    JOptionPane.showMessageDialog(null, "username atau password salah");
+                    txt_id.setText("");
+                    txt_password.setText("");
+                }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } 
     }//GEN-LAST:event_btn_loginActionPerformed
 
     /**

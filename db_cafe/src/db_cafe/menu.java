@@ -5,6 +5,9 @@
  */
 package db_cafe;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author LIO SYAFRIZA
@@ -16,6 +19,15 @@ public class menu extends javax.swing.JFrame {
      */
     public menu() {
         initComponents();
+        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        if (frameSize.height > screenSize.height){
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width){
+            frameSize.width = screenSize.width;
+        }this.setLocation((screenSize.width - frameSize.width) /  2, 
+              (screenSize.height - frameSize.height) / 2);
     }
 
     /**

@@ -5,6 +5,9 @@
  */
 package db_cafe;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Eldi
@@ -15,7 +18,21 @@ public class Stok extends javax.swing.JFrame {
      * Creates new form Stok
      */
     public Stok() {
+        db = new db_cafe();
         initComponents();
+        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        if (frameSize.height > screenSize.height){
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width){
+            frameSize.width = screenSize.width;
+        }this.setLocation((screenSize.width - frameSize.width) /  2, 
+              (screenSize.height - frameSize.height) / 2);
+    }
+    public void reset(){
+        txt_namabarang.setText(null);
+        txt_jumlahbarang.setText(null);
     }
 
     /**
@@ -52,6 +69,11 @@ public class Stok extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btn_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/add.png"))); // NOI18N
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
 
         btn_home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/home.png"))); // NOI18N
         btn_home.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +317,10 @@ public class Stok extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_homeActionPerformed
 
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_addActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,7 +355,7 @@ public class Stok extends javax.swing.JFrame {
             }
         });
     }
-
+db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_change;
