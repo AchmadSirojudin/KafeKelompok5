@@ -209,7 +209,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-
+db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_login;
     private javax.swing.JButton btn_signup;

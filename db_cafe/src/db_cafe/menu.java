@@ -5,10 +5,18 @@
  */
 package db_cafe;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -20,6 +28,8 @@ public class menu extends javax.swing.JFrame {
      * Creates new form menu
      */
     public menu() {
+        db_cafe db = new db_cafe();
+        db.koneksi();
         initComponents();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
@@ -230,6 +240,13 @@ public class menu extends javax.swing.JFrame {
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         // TODO add your handling code here:
+        try {
+            File namafile = new File("src/reportdbCafe/report_pegawai.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(namafile.getPath(), null, koneksi.getConnection());
+            JasperViewer.viewReport(jp, false);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
         
     }//GEN-LAST:event_btn_laporanActionPerformed
 
