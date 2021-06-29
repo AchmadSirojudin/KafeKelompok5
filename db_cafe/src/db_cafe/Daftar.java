@@ -183,7 +183,7 @@ public class Daftar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nama,password,alamat,jenisKelamin,status;
         nama = txt_namapegawai.getText();
-        password = txt_namapegawai.getText();
+        password = txt_password.getText();
         alamat = txt_alamat.getText();
         jenisKelamin = txt_jeniskelamin.getText();
         status = txt_status.getText();

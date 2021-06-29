@@ -20,6 +20,8 @@ public class kelolaproduk extends javax.swing.JFrame {
      * Creates new form form_kelolaproduk
      */
     public kelolaproduk() {
+        db = new db_cafe();
+        db.koneksi();
         initComponents();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
@@ -30,6 +32,20 @@ public class kelolaproduk extends javax.swing.JFrame {
             frameSize.width = screenSize.width;
         }this.setLocation((screenSize.width - frameSize.width) /  2, 
               (screenSize.height - frameSize.height) / 2);
+    }
+    
+    public void reset(){
+        txt_nama.setText(null);
+        txt_harga.setText(null);
+        txt_kategori.setText(null);
+        txt_komposisi1.setText(null);
+        txt_komposisi2.setText(null);
+        txt_komposisi3.setText(null);
+        txt_komposisi4.setText(null);
+        txt_jumlah1.setText(null);
+        txt_jumlah2.setText(null);
+        txt_jumlah3.setText(null);
+        txt_jumlah4.setText(null);
     }
 
     /**
@@ -55,7 +71,7 @@ public class kelolaproduk extends javax.swing.JFrame {
         txt_komposisi3 = new javax.swing.JTextField();
         txt_komposisi4 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txt_jumlah = new javax.swing.JTextField();
+        txt_jumlah1 = new javax.swing.JTextField();
         txt_jumlah2 = new javax.swing.JTextField();
         txt_jumlah3 = new javax.swing.JTextField();
         txt_jumlah4 = new javax.swing.JTextField();
@@ -139,7 +155,7 @@ public class kelolaproduk extends javax.swing.JFrame {
                     .addComponent(txt_jumlah4, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                     .addComponent(txt_jumlah3)
                     .addComponent(txt_jumlah2)
-                    .addComponent(txt_jumlah))
+                    .addComponent(txt_jumlah1))
                 .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -166,7 +182,7 @@ public class kelolaproduk extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txt_komposisi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txt_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_jumlah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_komposisi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +201,11 @@ public class kelolaproduk extends javax.swing.JFrame {
         );
 
         btn_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/add.png"))); // NOI18N
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
 
         btn_home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/home.png"))); // NOI18N
         btn_home.addActionListener(new java.awt.event.ActionListener() {
@@ -340,6 +361,25 @@ public class kelolaproduk extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+        // TODO add your handling code here:
+        String nama,kategori,komposisi1,komposisi2,komposisi3,komposisi4;
+        String harga,jumlah1,jumlah2,jumlah3,jumlah4;
+        nama = txt_nama.getText();
+        kategori = txt_kategori.getText();
+        komposisi1 = txt_komposisi1.getText();
+        komposisi2 = txt_komposisi2.getText();
+        komposisi3 = txt_komposisi3.getText();
+        komposisi4 = txt_komposisi4.getText();
+        harga = txt_harga.getText();
+        jumlah1 = txt_jumlah1.getText();
+        jumlah2 = txt_jumlah2.getText();
+        jumlah3 = txt_jumlah3.getText();
+        jumlah4 = txt_jumlah4.getText();
+        db.insertproduk(nama,kategori,komposisi1,komposisi2,komposisi3,komposisi4,harga,jumlah1,jumlah2,jumlah3,jumlah4);
+        reset();
+    }//GEN-LAST:event_btn_addActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -377,7 +417,7 @@ public class kelolaproduk extends javax.swing.JFrame {
             }
         });
     }
-
+db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_change;
@@ -400,7 +440,7 @@ public class kelolaproduk extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_kelolaproduk;
     private javax.swing.JTextField txt_harga;
-    private javax.swing.JTextField txt_jumlah;
+    private javax.swing.JTextField txt_jumlah1;
     private javax.swing.JTextField txt_jumlah2;
     private javax.swing.JTextField txt_jumlah3;
     private javax.swing.JTextField txt_jumlah4;

@@ -48,7 +48,23 @@ public class db_cafe {
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("GAGAl");
+            System.out.println("GAGAL");
+        }
+    }
+    
+    public void insertproduk(String nama,String kategori,String komposisi1,
+                             String komposisi2,String komposisi3,String komposisi4,String harga,
+                             String jumlah1,String jumlah2,String jumlah3,String jumlah4){        
+        try {
+            String sql = "insert into produk values (?,?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 0);
+            ps.setString(2, nama);
+            ps.setString(3, kategori);
+            ps.setString(4, harga);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -100,7 +100,7 @@
                       <Component id="txt_jumlah4" pref="104" max="32767" attributes="0"/>
                       <Component id="txt_jumlah3" max="32767" attributes="0"/>
                       <Component id="txt_jumlah2" max="32767" attributes="0"/>
-                      <Component id="txt_jumlah" max="32767" attributes="0"/>
+                      <Component id="txt_jumlah1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="76" max="32767" attributes="0"/>
               </Group>
@@ -134,7 +134,7 @@
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_komposisi1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_jumlah" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_jumlah1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -198,7 +198,7 @@
             <Property name="text" type="java.lang.String" value="JUMLAH"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_jumlah">
+        <Component class="javax.swing.JTextField" name="txt_jumlah1">
         </Component>
         <Component class="javax.swing.JTextField" name="txt_jumlah2">
         </Component>
@@ -304,6 +304,9 @@
               <Image iconType="3" name="/db_cafe/image/add.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_home">
           <Properties>
