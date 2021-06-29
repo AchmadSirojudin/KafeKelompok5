@@ -52,16 +52,13 @@ public class db_cafe {
         }
     }
     
-    public void insertproduk(String nama,String kategori,String komposisi1,
-                             String komposisi2,String komposisi3,String komposisi4,String harga,
-                             String jumlah1,String jumlah2,String jumlah3,String jumlah4){        
+    public void insertstok(String nama, String jumlah,String tanggal){
         try {
-            String sql = "insert into produk values (?,?,?,?)";
+            String sql = "insert into stok values (?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
             ps.setString(2, nama);
-            ps.setString(3, kategori);
-            ps.setString(4, harga);
+            ps.setString(3, jumlah);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);

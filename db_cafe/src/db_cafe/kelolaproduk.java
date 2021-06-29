@@ -363,21 +363,6 @@ public class kelolaproduk extends javax.swing.JFrame {
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
-        String nama,kategori,komposisi1,komposisi2,komposisi3,komposisi4;
-        String harga,jumlah1,jumlah2,jumlah3,jumlah4;
-        nama = txt_nama.getText();
-        kategori = txt_kategori.getText();
-        komposisi1 = txt_komposisi1.getText();
-        komposisi2 = txt_komposisi2.getText();
-        komposisi3 = txt_komposisi3.getText();
-        komposisi4 = txt_komposisi4.getText();
-        harga = txt_harga.getText();
-        jumlah1 = txt_jumlah1.getText();
-        jumlah2 = txt_jumlah2.getText();
-        jumlah3 = txt_jumlah3.getText();
-        jumlah4 = txt_jumlah4.getText();
-        db.insertproduk(nama,kategori,komposisi1,komposisi2,komposisi3,komposisi4,harga,jumlah1,jumlah2,jumlah3,jumlah4);
-        reset();
     }//GEN-LAST:event_btn_addActionPerformed
 
     /**

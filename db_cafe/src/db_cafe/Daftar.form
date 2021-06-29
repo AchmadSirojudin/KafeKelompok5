@@ -8,6 +8,10 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup3">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup4">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup5">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -31,7 +35,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -53,15 +57,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel2" max="32767" attributes="0"/>
-                              <Component id="jLabel3" max="32767" attributes="0"/>
-                              <Component id="jLabel4" max="32767" attributes="0"/>
-                              <Component id="jLabel5" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -76,17 +71,31 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel2" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" max="32767" attributes="0"/>
+                                      <Component id="jLabel4" max="32767" attributes="0"/>
+                                      <Component id="jLabel5" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_status" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btn_keluar" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btn_keluar" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_namapegawai" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_password" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_alamat" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txt_namapegawai" pref="197" max="32767" attributes="0"/>
-                                      <Component id="txt_password" max="32767" attributes="0"/>
-                                      <Component id="txt_alamat" max="32767" attributes="0"/>
-                                      <Component id="txt_jeniskelamin" max="32767" attributes="0"/>
+                                      <Component id="rb_laki" max="32767" attributes="0"/>
+                                      <Component id="rb_admin" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="rb_perempuan" max="32767" attributes="0"/>
+                                      <Component id="rb_pegawai" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -118,15 +127,17 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt_jeniskelamin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rb_laki" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rb_perempuan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_status" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rb_admin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rb_pegawai" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="87" max="32767" attributes="0"/>
+                  <EmptySpace pref="84" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btn_keluar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_daftar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -149,7 +160,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="status"/>
+            <Property name="text" type="java.lang.String" value="Status"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -173,8 +184,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_alamat">
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_jeniskelamin">
-        </Component>
         <Component class="javax.swing.JButton" name="btn_keluar">
           <Properties>
             <Property name="text" type="java.lang.String" value="KELUAR"/>
@@ -191,7 +200,43 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_daftarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_status">
+        <Component class="javax.swing.JRadioButton" name="rb_laki">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Laki Laki"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rb_lakiActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="rb_perempuan">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Perempuan"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rb_perempuanActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="rb_admin">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Admin"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="rb_pegawai">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Pegawai"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -35,9 +35,7 @@ public class Daftar extends javax.swing.JFrame {
         txt_namapegawai.setText(null);
         txt_namapegawai.setText(null);
         txt_alamat.setText(null);
-        txt_jeniskelamin.setText(null);
         txt_password.setText(null);
-        txt_status.setText(null);
     }
 
     /**
@@ -52,6 +50,8 @@ public class Daftar extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -62,10 +62,12 @@ public class Daftar extends javax.swing.JFrame {
         txt_namapegawai = new javax.swing.JTextField();
         txt_password = new javax.swing.JTextField();
         txt_alamat = new javax.swing.JTextField();
-        txt_jeniskelamin = new javax.swing.JTextField();
         btn_keluar = new javax.swing.JButton();
         btn_daftar = new javax.swing.JButton();
-        txt_status = new javax.swing.JTextField();
+        rb_laki = new javax.swing.JRadioButton();
+        rb_perempuan = new javax.swing.JRadioButton();
+        rb_admin = new javax.swing.JRadioButton();
+        rb_pegawai = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +77,7 @@ public class Daftar extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jLabel7.setText("status");
+        jLabel7.setText("Status");
 
         jLabel4.setText("Alamat");
 
@@ -97,19 +99,34 @@ public class Daftar extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(rb_laki);
+        rb_laki.setText("Laki Laki");
+        rb_laki.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_lakiActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rb_perempuan);
+        rb_perempuan.setText("Perempuan");
+        rb_perempuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_perempuanActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(rb_admin);
+        rb_admin.setText("Admin");
+
+        buttonGroup2.add(rb_pegawai);
+        rb_pegawai.setText("Pegawai");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(jLabel1))
@@ -120,17 +137,28 @@ public class Daftar extends javax.swing.JFrame {
                                 .addComponent(btn_daftar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel7)))
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_status)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btn_keluar)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_namapegawai, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                                    .addComponent(txt_password)
-                                    .addComponent(txt_alamat)
-                                    .addComponent(txt_jeniskelamin))))))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_keluar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_namapegawai)
+                            .addComponent(txt_password)
+                            .addComponent(txt_alamat)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(rb_laki, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rb_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(rb_perempuan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rb_pegawai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -152,13 +180,15 @@ public class Daftar extends javax.swing.JFrame {
                     .addComponent(txt_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_jeniskelamin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(31, 31, 31)
+                    .addComponent(jLabel5)
+                    .addComponent(rb_laki)
+                    .addComponent(rb_perempuan))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txt_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                    .addComponent(rb_admin)
+                    .addComponent(rb_pegawai))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_keluar)
                     .addComponent(btn_daftar))
@@ -169,7 +199,7 @@ public class Daftar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,8 +215,18 @@ public class Daftar extends javax.swing.JFrame {
         nama = txt_namapegawai.getText();
         password = txt_password.getText();
         alamat = txt_alamat.getText();
-        jenisKelamin = txt_jeniskelamin.getText();
-        status = txt_status.getText();
+        jenisKelamin = null;
+        if(rb_laki.isSelected()){
+            jenisKelamin = "Laki-Laki";
+        }else if(rb_perempuan.isSelected()){
+            jenisKelamin = "Perempuan";
+        }
+        status = null;
+        if(rb_admin.isSelected()){
+            status = "Admin";
+        }else if(rb_perempuan.isSelected()){
+            status = "Pegawai";
+        }
         db.insert(nama,password,alamat,jenisKelamin,status);
         reset();
     }//GEN-LAST:event_btn_daftarActionPerformed
@@ -197,6 +237,14 @@ public class Daftar extends javax.swing.JFrame {
         lg.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_keluarActionPerformed
+
+    private void rb_perempuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_perempuanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rb_perempuanActionPerformed
+
+    private void rb_lakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_lakiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rb_lakiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +287,8 @@ public class Daftar extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -246,10 +296,12 @@ public class Daftar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton rb_admin;
+    private javax.swing.JRadioButton rb_laki;
+    private javax.swing.JRadioButton rb_pegawai;
+    private javax.swing.JRadioButton rb_perempuan;
     private javax.swing.JTextField txt_alamat;
-    private javax.swing.JTextField txt_jeniskelamin;
     private javax.swing.JTextField txt_namapegawai;
     private javax.swing.JTextField txt_password;
-    private javax.swing.JTextField txt_status;
     // End of variables declaration//GEN-END:variables
 }

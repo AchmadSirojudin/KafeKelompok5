@@ -35,6 +35,7 @@ public class Stok extends javax.swing.JFrame {
     public void reset(){
         txt_namabarang.setText(null);
         txt_jumlahbarang.setText(null);
+        txt_date.setDate(null);
     }
 
     /**
@@ -46,6 +47,7 @@ public class Stok extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -67,6 +69,10 @@ public class Stok extends javax.swing.JFrame {
         txt_jumlahbarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_stok = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        txt_date = new com.toedter.calendar.JDateChooser();
+
+        jLabel7.setText("jLabel7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,7 +125,7 @@ public class Stok extends javax.swing.JFrame {
                 .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_change, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 255));
@@ -207,16 +213,20 @@ public class Stok extends javax.swing.JFrame {
 
         tbl_stok.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "NAMA BARANG", "JUMLAH BARANG"
+                "NAMA BARANG", "JUMLAH BARANG", "TANGGAL"
             }
         ));
         jScrollPane1.setViewportView(tbl_stok);
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TANGGAL");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -228,11 +238,13 @@ public class Stok extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
                         .addGap(81, 81, 81)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_namabarang)
-                            .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(txt_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -249,9 +261,13 @@ public class Stok extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(74, 74, 74)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -329,6 +345,12 @@ public class Stok extends javax.swing.JFrame {
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
+        String nama,jumlah,tanggal;
+        nama = txt_namabarang.getText();
+        jumlah = txt_jumlahbarang.getText();
+        tanggal = txt_date.getDateFormatString();
+        db.insertstok(nama,jumlah,tanggal);
+        reset();
     }//GEN-LAST:event_btn_addActionPerformed
 
     /**
@@ -377,6 +399,8 @@ db_cafe db;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -385,6 +409,7 @@ db_cafe db;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_stok;
+    private com.toedter.calendar.JDateChooser txt_date;
     private javax.swing.JTextField txt_jumlahbarang;
     private javax.swing.JTextField txt_namabarang;
     private javax.swing.JTextField txt_pendapatan;
