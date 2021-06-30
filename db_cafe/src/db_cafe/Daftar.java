@@ -73,7 +73,7 @@ public class Daftar extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
-        jLabel2.setText("Nama pegawai");
+        jLabel2.setText("Nama Pegawai");
 
         jLabel3.setText("Password");
 
@@ -81,7 +81,7 @@ public class Daftar extends javax.swing.JFrame {
 
         jLabel4.setText("Alamat");
 
-        jLabel5.setText("Jenis kelamin");
+        jLabel5.setText("Jenis Kelamin");
 
         jLabel1.setText("REGISTRASI");
 
