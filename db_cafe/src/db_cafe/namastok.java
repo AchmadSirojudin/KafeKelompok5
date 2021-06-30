@@ -5,17 +5,60 @@
  */
 package db_cafe;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.naming.spi.DirStateFactory;
+
+
 /**
  *
  * @author LIO SYAFRIZA
  */
-public class form_namastok extends javax.swing.JFrame {
+public class namastok extends javax.swing.JFrame {
 
     /**
      * Creates new form form_namastok
      */
-    public form_namastok() {
+    public namastok() {
+        db = new db_cafe();
+        db.koneksi();
         initComponents();
+        showTable();
+        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        if (frameSize.height > screenSize.height){
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width){
+            frameSize.width = screenSize.width;
+        }this.setLocation((screenSize.width - frameSize.width) /  2, 
+              (screenSize.height - frameSize.height) / 2);
+    }
+    
+    public void reset(){
+        txt_namabarang.setText(null);
+    }
+    
+    public void showTable(){        
+        try {
+            tbm = new DefaultTableModel(new String[]{"NAMA BARANG"},0);
+            ResultSet rs;
+            rs = db.selectDB();
+            while(rs.next()){
+                tbm.addRow(new Object[]{rs.getString("nama_stok")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(namastok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbl_namabarang.setModel(tbm);
+
     }
 
     /**
@@ -31,7 +74,6 @@ public class form_namastok extends javax.swing.JFrame {
         btn_add = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
-        btn_change = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -61,8 +103,11 @@ public class form_namastok extends javax.swing.JFrame {
         });
 
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/delete.png"))); // NOI18N
-
-        btn_change.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/remake.png"))); // NOI18N
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -79,22 +124,18 @@ public class form_namastok extends javax.swing.JFrame {
                         .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(37, 37, 37))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_change, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(179, 179, 179)
+                .addGap(254, 254, 254)
                 .addComponent(btn_home, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_add)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_change, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -168,7 +209,7 @@ public class form_namastok extends javax.swing.JFrame {
         lbl_namabarang.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         lbl_namabarang.setText("NAMA BARANG");
 
-        tbl_namabarang.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        tbl_namabarang.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
         tbl_namabarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null}
@@ -177,6 +218,11 @@ public class form_namastok extends javax.swing.JFrame {
                 "NAMA BARANG"
             }
         ));
+        tbl_namabarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_namabarangMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_namabarang);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,15 +268,44 @@ public class form_namastok extends javax.swing.JFrame {
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
+        String nama = txt_namabarang.getText();
+        db.insertnamastok(nama);
+        reset();
+        showTable();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
         // TODO add your handling code here:
+        menu mn = new menu();
+        mn.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         // TODO add your handling code here:
+        JFrame frame = new JFrame("EXIT");
+        if(JOptionPane.showConfirmDialog(frame,"Confirm if you want LOGOUT", "EXIT",
+                JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+        {
+            Login lg = new Login();
+            lg.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // TODO add your handling code here:
+        String nama = txt_namabarang.getText();
+        db.deletenamastok(nama);
+        reset();
+        showTable();
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void tbl_namabarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_namabarangMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_namabarang.getSelectedRow();
+        txt_namabarang.setText(tbl_namabarang.getValueAt(row, 0).toString());
+    }//GEN-LAST:event_tbl_namabarangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -249,27 +324,28 @@ public class form_namastok extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(form_namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(form_namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(form_namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(form_namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(namastok.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new form_namastok().setVisible(true);
+                new namastok().setVisible(true);
             }
         });
     }
-
+db_cafe db;
+DefaultTableModel tbm;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
-    private javax.swing.JButton btn_change;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_logout;

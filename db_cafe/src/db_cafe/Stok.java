@@ -29,8 +29,6 @@ public class Stok extends javax.swing.JFrame {
         initComponents();
         tampil_comboB();
         tampil_comboP();
-        tampilB();
-        tampilP();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
         if (frameSize.height > screenSize.height){
@@ -49,7 +47,7 @@ public class Stok extends javax.swing.JFrame {
     
     public void tampil_comboB(){
        try{
-           String sql = "Select * From detail_stok";
+           String sql = "Select * From stok";
            java.sql.Connection conn = (Connection) koneksi.getConnection();
            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
            ResultSet rs = pst.executeQuery();
@@ -68,7 +66,7 @@ public class Stok extends javax.swing.JFrame {
     
     public void tampil_comboP(){
        try{
-           String sql = "Select * From detail_stok";
+           String sql = "Select * From pegawai";
            java.sql.Connection conn = (Connection) koneksi.getConnection();
            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
            ResultSet rs = pst.executeQuery();
@@ -163,7 +161,7 @@ public class Stok extends javax.swing.JFrame {
         txt_namapegawai = new javax.swing.JTextField();
         cb_pegawai = new javax.swing.JComboBox<>();
         cb_barang = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btn_addnamastok = new javax.swing.JButton();
         txt_date = new com.toedter.calendar.JDateChooser();
 
         jLabel7.setText("jLabel7");
@@ -334,10 +332,22 @@ public class Stok extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("NAMA PEGAWAI");
 
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cb_pegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cb_pegawaiActionPerformed(evt);
+            }
+        });
+
+        cb_barang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_barangActionPerformed(evt);
+            }
+        });
+
+        btn_addnamastok.setText("ADD");
+        btn_addnamastok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addnamastokActionPerformed(evt);
             }
         });
 
@@ -359,15 +369,15 @@ public class Stok extends javax.swing.JFrame {
                     .addComponent(txt_namapegawai)
                     .addComponent(txt_jumlahbarang)
                     .addComponent(txt_namabarang)
-                    .addComponent(cb_barang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_barang, 0, 172, Short.MAX_VALUE)
                     .addComponent(cb_pegawai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_date, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                    .addComponent(txt_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(636, Short.MAX_VALUE))
+                .addComponent(btn_addnamastok)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
         );
         jPanel6Layout.setVerticalGroup(
@@ -385,7 +395,7 @@ public class Stok extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btn_addnamastok))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -396,8 +406,8 @@ public class Stok extends javax.swing.JFrame {
                     .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
@@ -488,9 +498,22 @@ public class Stok extends javax.swing.JFrame {
         reset();
     }//GEN-LAST:event_btn_addActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_addnamastokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addnamastokActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        namastok ns = new namastok();
+        ns.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_addnamastokActionPerformed
+
+    private void cb_pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_pegawaiActionPerformed
+        // TODO add your handling code here:
+        tampilP();
+    }//GEN-LAST:event_cb_pegawaiActionPerformed
+
+    private void cb_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_barangActionPerformed
+        // TODO add your handling code here:
+        tampilB();
+    }//GEN-LAST:event_cb_barangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -529,13 +552,13 @@ public class Stok extends javax.swing.JFrame {
 db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_addnamastok;
     private javax.swing.JButton btn_change;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_logout;
     private javax.swing.JComboBox<String> cb_barang;
     private javax.swing.JComboBox<String> cb_pegawai;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

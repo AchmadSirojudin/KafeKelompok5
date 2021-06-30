@@ -5,12 +5,13 @@
  */
 package db_cafe;
 
-import java.beans.Statement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,8 +21,8 @@ import java.util.logging.Logger;
  */
 public class db_cafe {
     Connection con;
-    Statement stm;
-    ResultSet st;
+    Statement st;
+    ResultSet rs;
     PreparedStatement ps;
     
     public void koneksi(){
@@ -52,9 +53,44 @@ public class db_cafe {
         }
     }
     
-    public void insertstok(String nama, String jumlah,String tanggal){
+    public ResultSet selectDB(){
+        try {
+            String sql = "select * from stok";
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public void insertnamastok(String nama){
         try {
             String sql = "insert into stok values (?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 0);
+            ps.setString(2, nama);
+            ps.setInt(3, 0);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deletenamastok(String nama){
+        try {
+            String sql = "delete from stok where nama_stok=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nama);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertstok(String nama, String jumlah,String tanggal){
+        try {
+            String sql = "insert into detail_stok values (?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
             ps.setString(2, nama);
