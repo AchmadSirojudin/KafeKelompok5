@@ -7,6 +7,12 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,11 +23,18 @@ import javax.swing.JOptionPane;
 public class Stok extends javax.swing.JFrame {
 
     /**
-//     * Creates new form Stok
+     * Creates new form Stok
      */
+    
+    Statement stm;
+    
     public Stok() {
         db = new db_cafe();
         initComponents();
+        tampil_comboB();
+        tampil_comboP();
+        tampilB();
+        tampilP();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
         if (frameSize.height > screenSize.height){
@@ -33,9 +46,242 @@ public class Stok extends javax.swing.JFrame {
               (screenSize.height - frameSize.height) / 2);
     }
     public void reset(){
-        txt_namabarang.setText(null);
         txt_jumlahbarang.setText(null);
         jDateChooser1.setDate(null);
+    }
+    
+    public void tampil_comboB(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_barang.addItem(rs.getString("id_stok"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampil_comboP(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_pegawai.addItem(rs.getString("id_pegawai"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampilB(){
+        try {
+            String sql = "Select nama_stok from stok where id_stok='"+cb_barang.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namabarang.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampilP(){
+        try {
+            String sql = "Select username from pegawai where id_pegawai='"+cb_pegawai.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namapegawai.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampil_comboB(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_barang.addItem(rs.getString("id_stok"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampil_comboP(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_pegawai.addItem(rs.getString("id_pegawai"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampilB(){
+        try {
+            String sql = "Select nama_stok from stok where id_stok='"+cb_barang.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namabarang.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampilP(){
+        try {
+            String sql = "Select username from pegawai where id_pegawai='"+cb_pegawai.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namapegawai.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampil_comboB(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_barang.addItem(rs.getString("id_stok"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampil_comboP(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_pegawai.addItem(rs.getString("id_pegawai"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampilB(){
+        try {
+            String sql = "Select nama_stok from stok where id_stok='"+cb_barang.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namabarang.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampilP(){
+        try {
+            String sql = "Select username from pegawai where id_pegawai='"+cb_pegawai.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namapegawai.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -58,11 +304,11 @@ public class Stok extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txt_namabarang = new javax.swing.JTextField();
         txt_jumlahbarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_stok = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -71,6 +317,23 @@ public class Stok extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
+=======
+        txt_date = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        cb_pegawai = new javax.swing.JComboBox<>();
+        cb_barang = new javax.swing.JComboBox<>();
+        btn_addNama = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txt_namabarang = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txt_namapegawai = new javax.swing.JTextField();
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
         jLabel7.setText("jLabel7");
 
@@ -125,7 +388,19 @@ public class Stok extends javax.swing.JFrame {
                 .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_change, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                .addContainerGap(194, Short.MAX_VALUE))
+>>>>>>> Stashed changes
+=======
+                .addContainerGap(194, Short.MAX_VALUE))
+>>>>>>> Stashed changes
+=======
+                .addContainerGap(194, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
 
         jPanel6.setBackground(new java.awt.Color(153, 153, 153));
@@ -190,8 +465,20 @@ public class Stok extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 255));
 
+<<<<<<< Updated upstream
         jLabel3.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 3, 24)); // NOI18N
         jLabel3.setText("LOGO");
+=======
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ID BARANG");
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel1.setText("NAMA KAFE");
@@ -205,6 +492,7 @@ public class Stok extends javax.swing.JFrame {
             }
         });
 
+<<<<<<< Updated upstream
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -228,11 +516,143 @@ public class Stok extends javax.swing.JFrame {
                     .addComponent(btn_logout))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
+=======
+        tbl_stok.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID PEGAWAI", "NAMA PEGAWAI", "ID BARANG", "NAMA BARANG", "JUMLAH", "TANGGAL"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_stok);
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TANGGAL");
+>>>>>>> Stashed changes
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ID PEGAWAI");
+
+        cb_pegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_pegawaiActionPerformed(evt);
+            }
+        });
+
+        btn_addNama.setText("ADD");
+        btn_addNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("NAMA BARANG");
+
+        txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namabarangActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NAMA PEGAWAI");
+
+        txt_namapegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namapegawaiActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ID PEGAWAI");
+
+        cb_pegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_pegawaiActionPerformed(evt);
+            }
+        });
+
+        btn_addNama.setText("ADD");
+        btn_addNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("NAMA BARANG");
+
+        txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namabarangActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NAMA PEGAWAI");
+
+        txt_namapegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namapegawaiActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ID PEGAWAI");
+
+        cb_pegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_pegawaiActionPerformed(evt);
+            }
+        });
+
+        btn_addNama.setText("ADD");
+        btn_addNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("NAMA BARANG");
+
+        txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namabarangActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NAMA PEGAWAI");
+
+        txt_namapegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namapegawaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
@@ -248,10 +668,67 @@ public class Stok extends javax.swing.JFrame {
                 .addContainerGap(859, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+>>>>>>> Stashed changes
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+>>>>>>> Stashed changes
+                .addGap(79, 79, 79)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(134, 134, 134)
+                        .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_namabarang, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10))
+                            .addGap(81, 81, 81)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txt_namapegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                    .addComponent(txt_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cb_pegawai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addGap(26, 26, 26)
+                .addComponent(btn_addNama)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,6 +746,54 @@ public class Stok extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+=======
+                .addGap(15, 15, 15)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+=======
+                .addGap(15, 15, 15)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+>>>>>>> Stashed changes
+=======
+                .addGap(15, 15, 15)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+>>>>>>> Stashed changes
+                    .addComponent(jLabel9)
+                    .addComponent(cb_pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_namapegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_addNama)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_namabarang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
                 .addContainerGap())
         );
 
@@ -348,12 +873,53 @@ public class Stok extends javax.swing.JFrame {
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
         String nama,jumlah,tanggal;
-        nama = txt_namabarang.getText();
+        int id_pegawai,id_stok;
         jumlah = txt_jumlahbarang.getText();
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         tanggal = jDateChooser1.getDateFormatString();
         db.insertstok(nama,jumlah,tanggal);
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+        tanggal = txt_date.getDateFormatString();
+//        id_pegawai = cb_pegawai.getSelectedItem();
+//        id_stok = cb_barang.getSelectedItem();
+//        db.insertstok(jumlah,tanggal,id_pegawai,id_stok);
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         reset();
+        tampil_comboB();
+        tampil_comboP();
     }//GEN-LAST:event_btn_addActionPerformed
+
+    private void btn_addNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNamaActionPerformed
+        // TODO add your handling code here:
+        transaksi ts = new transaksi();
+        ts.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_addNamaActionPerformed
+
+    private void cb_pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_pegawaiActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cb_pegawaiActionPerformed
+
+    private void txt_namabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namabarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_namabarangActionPerformed
+
+    private void txt_namapegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namapegawaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_namapegawaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,18 +958,37 @@ public class Stok extends javax.swing.JFrame {
 db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_addNama;
     private javax.swing.JButton btn_change;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_logout;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private com.toedter.calendar.JDateChooser jDateChooser1;
+=======
+    private javax.swing.JComboBox<String> cb_barang;
+    private javax.swing.JComboBox<String> cb_pegawai;
+>>>>>>> Stashed changes
+=======
+    private javax.swing.JComboBox<String> cb_barang;
+    private javax.swing.JComboBox<String> cb_pegawai;
+>>>>>>> Stashed changes
+=======
+    private javax.swing.JComboBox<String> cb_barang;
+    private javax.swing.JComboBox<String> cb_pegawai;
+>>>>>>> Stashed changes
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -414,6 +999,7 @@ db_cafe db;
     private javax.swing.JTable tbl_stok;
     private javax.swing.JTextField txt_jumlahbarang;
     private javax.swing.JTextField txt_namabarang;
+    private javax.swing.JTextField txt_namapegawai;
     private javax.swing.JTextField txt_pendapatan;
     // End of variables declaration//GEN-END:variables
 }
