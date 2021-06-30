@@ -283,6 +283,84 @@ public class Stok extends javax.swing.JFrame {
             Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void tampil_comboB(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_barang.addItem(rs.getString("id_stok"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampil_comboP(){
+       try{
+           String sql = "Select * From detail_stok";
+           java.sql.Connection conn = (Connection) koneksi.getConnection();
+           java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+           ResultSet rs = pst.executeQuery();
+           
+           while(rs.next()){
+               cb_pegawai.addItem(rs.getString("id_pegawai"));
+               
+           }       
+           rs.last();
+           int jumlahdata = rs.getRow();
+           rs.first();           
+       }catch(Exception e){
+           System.out.println("GAGAL");
+       }
+    }
+    
+    public void tampilB(){
+        try {
+            String sql = "Select nama_stok from stok where id_stok='"+cb_barang.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namabarang.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void tampilP(){
+        try {
+            String sql = "Select username from pegawai where id_pegawai='"+cb_pegawai.getSelectedItem()+"'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+            Object[] ob = new Object[1];
+            ob[0]=  rs.getString(1);
+            
+            txt_namapegawai.setText((String) ob[0]);
+        }
+        rs.close();
+	pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -329,6 +407,9 @@ public class Stok extends javax.swing.JFrame {
         txt_namapegawai = new javax.swing.JTextField();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -391,7 +472,11 @@ public class Stok extends javax.swing.JFrame {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                .addContainerGap(194, Short.MAX_VALUE))
+>>>>>>> Stashed changes
 =======
                 .addContainerGap(194, Short.MAX_VALUE))
 >>>>>>> Stashed changes
@@ -474,6 +559,9 @@ public class Stok extends javax.swing.JFrame {
         jLabel2.setText("ID BARANG");
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -646,10 +734,48 @@ public class Stok extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ID PEGAWAI");
+
+        cb_pegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_pegawaiActionPerformed(evt);
+            }
+        });
+
+        btn_addNama.setText("ADD");
+        btn_addNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("NAMA BARANG");
+
+        txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namabarangActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NAMA PEGAWAI");
+
+        txt_namapegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_namapegawaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -674,6 +800,13 @@ public class Stok extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
             .addGroup(jPanel6Layout.createSequentialGroup()
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+>>>>>>> Stashed changes
 =======
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
@@ -717,6 +850,9 @@ public class Stok extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -726,6 +862,7 @@ public class Stok extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -749,6 +886,10 @@ public class Stok extends javax.swing.JFrame {
 =======
                 .addGap(15, 15, 15)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+=======
+                .addGap(15, 15, 15)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+>>>>>>> Stashed changes
 =======
                 .addGap(15, 15, 15)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -789,6 +930,9 @@ public class Stok extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -878,9 +1022,12 @@ public class Stok extends javax.swing.JFrame {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         tanggal = jDateChooser1.getDateFormatString();
         db.insertstok(nama,jumlah,tanggal);
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -891,6 +1038,9 @@ public class Stok extends javax.swing.JFrame {
 //        db.insertstok(jumlah,tanggal,id_pegawai,id_stok);
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -966,7 +1116,12 @@ db_cafe db;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private com.toedter.calendar.JDateChooser jDateChooser1;
+=======
+    private javax.swing.JComboBox<String> cb_barang;
+    private javax.swing.JComboBox<String> cb_pegawai;
+>>>>>>> Stashed changes
 =======
     private javax.swing.JComboBox<String> cb_barang;
     private javax.swing.JComboBox<String> cb_pegawai;
