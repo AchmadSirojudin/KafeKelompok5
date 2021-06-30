@@ -52,18 +52,16 @@ public class db_cafe {
         }
     }
     
-    public void insertstok(String jumlah,String tanggal,int id_pegawai,int id_stok){
+    public void insertstok(String nama, String jumlah,String tanggal){
         try {
-            String sql = "insert into detail_stok values (?,?,?,?,?)";
+            String sql = "insert into stok values (?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
-            ps.setInt(2, id_pegawai);
-            ps.setInt(3, id_stok);
-            ps.setString(4, jumlah);
-            ps.setString(5, tanggal);
+            ps.setString(2, nama);
+            ps.setString(3, jumlah);
             ps.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("GAGAL");
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
