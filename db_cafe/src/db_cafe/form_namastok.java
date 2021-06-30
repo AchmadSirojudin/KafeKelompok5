@@ -221,31 +221,14 @@ public class form_namastok extends javax.swing.JFrame {
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
-        String nama,jumlah,tanggal;
-        nama = txt_namabarang.getText();
-        jumlah = txt_jumlahbarang.getText();
-        tanggal = txt_date.getDateFormatString();
-        db.insertstok(nama,jumlah,tanggal);
-        reset();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
         // TODO add your handling code here:
-        menu mn = new menu();
-        mn.setVisible(true);
-        dispose();
     }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         // TODO add your handling code here:
-        JFrame frame = new JFrame("EXIT");
-        if(JOptionPane.showConfirmDialog(frame,"Confirm if you want LOGOUT", "EXIT",
-            JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
-    {
-        Login lg = new Login();
-        lg.setVisible(true);
-        dispose();
-        }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
