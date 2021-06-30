@@ -53,9 +53,20 @@ public class db_cafe {
         }
     }
     
-    public ResultSet selectDB(){
+    public ResultSet selectnamastok(){
         try {
             String sql = "select * from stok";
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public ResultSet selectpegawai(){
+        try {
+            String sql = "select * from pegawai";
             st = (Statement) con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -82,6 +93,35 @@ public class db_cafe {
             String sql = "delete from stok where nama_stok=?";
             ps = con.prepareStatement(sql);
             ps.setString(1, nama);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deletepegawai(String nama){
+        try {
+            String sql = "delete from pegawai where username=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nama);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updatepegawai(String id,String nama,String password,
+                              String jeniskelamin,String alamat,
+                              String status){
+        try {
+            String sql = "update pegawai set username=?,jenis_kelamin=?,alamat=?,password=?,status=? where id_pegawai=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(6, id);
+            ps.setString(1, nama);
+            ps.setString(4, password);
+            ps.setString(3, alamat);
+            ps.setString(2, jeniskelamin);
+            ps.setString(5, status);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);

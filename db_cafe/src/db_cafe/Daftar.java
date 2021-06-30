@@ -33,7 +33,6 @@ public class Daftar extends javax.swing.JFrame {
     }
     public void reset(){
         txt_namapegawai.setText(null);
-        txt_namapegawai.setText(null);
         txt_alamat.setText(null);
         txt_password.setText(null);
     }
@@ -224,7 +223,7 @@ public class Daftar extends javax.swing.JFrame {
         status = null;
         if(rb_admin.isSelected()){
             status = "Admin";
-        }else if(rb_perempuan.isSelected()){
+        }else if(rb_pegawai.isSelected()){
             status = "Pegawai";
         }
         db.insert(nama,password,alamat,jenisKelamin,status);

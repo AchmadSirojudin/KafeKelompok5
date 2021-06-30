@@ -50,7 +50,7 @@ public class namastok extends javax.swing.JFrame {
         try {
             tbm = new DefaultTableModel(new String[]{"NAMA BARANG"},0);
             ResultSet rs;
-            rs = db.selectDB();
+            rs = db.selectnamastok();
             while(rs.next()){
                 tbm.addRow(new Object[]{rs.getString("nama_stok")});
             }
