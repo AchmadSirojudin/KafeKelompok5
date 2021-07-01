@@ -75,6 +75,17 @@ public class db_cafe {
         return rs;
     }
     
+    public ResultSet selectstok(){
+        try {
+            String sql = "select * from detail_stok";
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
     public void insertnamastok(String nama){
         try {
             String sql = "insert into stok values (?,?,?)";
@@ -110,6 +121,17 @@ public class db_cafe {
         }
     }
     
+    public void deletestok(String idD){
+        try {
+            String sql = "delete from detail_stok where id_detail_stok=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, idD);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void updatepegawai(String id,String nama,String password,
                               String jeniskelamin,String alamat,
                               String status){
@@ -128,14 +150,28 @@ public class db_cafe {
         }
     }
     
-    public void insertstok(String nama, String jumlah,String tanggal){
+    public void insertdstok(String nama, String jumlah,String tanggal, String idP, String idB){
         try {
-            String sql = "insert into detail_stok values (?,?,?)";
+            String sql = "insert into detail_stok values (?,?,?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
-            ps.setString(2, nama);
-            ps.setString(3, jumlah);
+            ps.setString(2, idP);
+            ps.setString(3, idB);
+            ps.setString(4, jumlah);
+            ps.setString(5, tanggal);
             ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertstok(String jumlah){
+        try {
+            String sql = "insert into stok values (?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 0);
+            ps.setString(2, null);
+            ps.setString(3, jumlah); 
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
