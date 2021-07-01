@@ -164,17 +164,16 @@ public class db_cafe {
     }
     
     
-    public void insertdstok(String nama, String jumlah,
+    public void insertdstok(String nama,
                             String tanggal, String idP, 
                             String idB){
         try {
-            String sql = "insert into detail_stok values (?,?,?,?,?)";
+            String sql = "insert into detail_stok values (?,?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
             ps.setString(2, idP);
             ps.setString(3, idB);
-            ps.setString(4, jumlah);
-            ps.setString(5, tanggal);
+            ps.setString(4, tanggal);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);

@@ -51,20 +51,19 @@ public class Stok extends javax.swing.JFrame {
     }
 
     public void reset() {
-        txt_jumlahbarang.setText(null);
         txtjumlahbarang.setText(null);
         txt_date.setText(null);
     }
 
     public void showTable() {
         try {
-            tbm = new DefaultTableModel(new String[]{"ID DETAIL", "ID PEGAWAI", "ID BARANG",
-                "JUMLAH INPUT","JUMLAH STOK", "TANGGAL"}, 0);
+            tbm = new DefaultTableModel(new String[]{"ID DETAIL", "ID PEGAWAI", "ID BARANG"
+                ,"JUMLAH STOK", "TANGGAL"}, 0);
             ResultSet rs;
             rs = db.selectstok();
             while (rs.next()) {
                 tbm.addRow(new Object[]{rs.getString("id_detail_stok"), rs.getString("id_pegawai"), rs.getString("id_stok"),
-                    rs.getString("jumlah_input"),rs.getString("jumlah_stok"),
+                    rs.getString("jumlah_stok"),
                     rs.getString("tgl_input")});
             }
         } catch (SQLException ex) {
@@ -209,9 +208,7 @@ public class Stok extends javax.swing.JFrame {
         txt_pendapatan = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txt_namabarang = new javax.swing.JTextField();
-        txt_jumlahbarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_stok = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -367,21 +364,6 @@ public class Stok extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NAMA BARANG");
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("JUMLAH INPUT");
-
-        txt_jumlahbarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_jumlahbarangActionPerformed(evt);
-            }
-        });
-        txt_jumlahbarang.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_jumlahbarangKeyTyped(evt);
-            }
-        });
-
         tbl_stok.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -468,7 +450,6 @@ public class Stok extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8)
@@ -477,7 +458,6 @@ public class Stok extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_namapegawai)
-                    .addComponent(txt_jumlahbarang)
                     .addComponent(txt_namabarang)
                     .addComponent(cb_barang, 0, 172, Short.MAX_VALUE)
                     .addComponent(cb_pegawai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -516,11 +496,7 @@ public class Stok extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_namabarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_jumlahbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(txtjumlahbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -596,10 +572,6 @@ public class Stok extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
-    private void txt_jumlahbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumlahbarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_jumlahbarangActionPerformed
-
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
         // TODO add your handling code here:
         menu mn = new menu();
@@ -614,9 +586,9 @@ public class Stok extends javax.swing.JFrame {
         idP = cb_pegawai.getSelectedItem().toString();
         idB = cb_barang.getSelectedItem().toString();
         nama = txt_namabarang.getText();
-        jumlah = txt_jumlahbarang.getText();
+        jumlah = txtjumlahbarang.getText();
         tanggal = txt_date.getText();
-        db.insertdstok(nama, jumlah, tanggal, idP, idB);
+        db.insertdstok(nama, tanggal, idP, idB);
         db.insertstok(jumlah);
         reset();
         auto();
@@ -662,24 +634,14 @@ public class Stok extends javax.swing.JFrame {
         txt_detailstok.setText(tbl_stok.getValueAt(row, 0).toString());
         cb_pegawai.setSelectedItem(tbl_stok.getValueAt(row, 1));
         cb_barang.setSelectedItem(tbl_stok.getValueAt(row, 2));
-        txt_date.setText(tbl_stok.getValueAt(row, 5).toString());
-        txt_jumlahbarang.setText(tbl_stok.getValueAt(row, 3).toString());
-        txtjumlahbarang.setText(tbl_stok.getValueAt(row, 4).toString());
+        txt_date.setText(tbl_stok.getValueAt(row, 4).toString());
+        txtjumlahbarang.setText(tbl_stok.getValueAt(row, 3).toString());
     }//GEN-LAST:event_tbl_stokMouseClicked
 
     private void txt_detailstokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_detailstokActionPerformed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_txt_detailstokActionPerformed
-
-    private void txt_jumlahbarangKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_jumlahbarangKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if (!(Character.isDigit(c)) && !(c == KeyEvent.VK_BACK_SPACE)) {
-            JOptionPane.showMessageDialog(null, "Inputan tidak boleh menganduk spasi", "Ilegal Input", JOptionPane.ERROR_MESSAGE);
-            evt.consume();
-        }
-    }//GEN-LAST:event_txt_jumlahbarangKeyTyped
 
     private void btn_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changeActionPerformed
         try {
@@ -750,7 +712,6 @@ public class Stok extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -765,7 +726,6 @@ public class Stok extends javax.swing.JFrame {
     private javax.swing.JTable tbl_stok;
     private javax.swing.JTextField txt_date;
     private javax.swing.JTextField txt_detailstok;
-    private javax.swing.JTextField txt_jumlahbarang;
     private javax.swing.JTextField txt_namabarang;
     private javax.swing.JTextField txt_namapegawai;
     private javax.swing.JTextField txt_pendapatan;
