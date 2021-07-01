@@ -77,7 +77,7 @@ public class db_cafe {
     
     public ResultSet selectstok(){
         try {
-            String sql = "select * from detail_stok";
+            String sql = "select * from stok inner join detail_stok on detail_stok.id_stok = stok.id_stok where detail_stok.id_detail_stok";
             st = (Statement) con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -150,7 +150,23 @@ public class db_cafe {
         }
     }
     
-    public void insertdstok(String nama, String jumlah,String tanggal, String idP, String idB){
+    public void updatedstok(String jumlah, String idB, String nama){
+        try {
+            String sql = "update stok set nama_stok=?,jumlah_stok=? where id_stok=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(3, idB);
+            ps.setString(1, nama);
+            ps.setString(2, jumlah);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public void insertdstok(String nama, String jumlah,
+                            String tanggal, String idP, 
+                            String idB){
         try {
             String sql = "insert into detail_stok values (?,?,?,?,?)";
             ps = con.prepareStatement(sql);
@@ -167,7 +183,7 @@ public class db_cafe {
     
     public void insertstok(String jumlah){
         try {
-            String sql = "insert into stok values (?,?,?)";
+            String sql = "insert into stok values (?,?,?=\"jumlah_stok + new.jumlah_input\")";
             ps = con.prepareStatement(sql);
             ps.setInt(1, 0);
             ps.setString(2, null);
@@ -176,4 +192,4 @@ public class db_cafe {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-}
+} 
