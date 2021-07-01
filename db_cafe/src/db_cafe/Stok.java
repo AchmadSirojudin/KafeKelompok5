@@ -7,6 +7,7 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -358,6 +359,11 @@ public class Stok extends javax.swing.JFrame {
                 txt_jumlahbarangActionPerformed(evt);
             }
         });
+        txt_jumlahbarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_jumlahbarangKeyTyped(evt);
+            }
+        });
 
         tbl_stok.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -637,6 +643,15 @@ public class Stok extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_txt_detailstokActionPerformed
+
+    private void txt_jumlahbarangKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_jumlahbarangKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c)) && !(c == KeyEvent.VK_BACK_SPACE)){
+            JOptionPane.showMessageDialog(null, "Inputan tidak boleh menganduk spasi", "Ilegal Input", JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_jumlahbarangKeyTyped
 
     /**
      * @param args the command line arguments
