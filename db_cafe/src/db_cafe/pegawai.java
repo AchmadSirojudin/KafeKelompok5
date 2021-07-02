@@ -64,7 +64,7 @@ public class pegawai extends javax.swing.JFrame {
                                         rs.getString("status")});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(namastok.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pegawai.class.getName()).log(Level.SEVERE, null, ex);
         }
         tbl_pegawai.setModel(tbm);
 

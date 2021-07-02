@@ -7,8 +7,16 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +31,12 @@ public class kelolaproduk extends javax.swing.JFrame {
         db = new db_cafe();
         db.koneksi();
         initComponents();
+        showTable();
+        tampil_comboB();
+//        tampil_comboP();
+        autoproduk();
+//        autodetail();
+        textmati();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
         if (frameSize.height > screenSize.height){
@@ -37,17 +51,156 @@ public class kelolaproduk extends javax.swing.JFrame {
     public void reset(){
         txt_nama.setText(null);
         txt_harga.setText(null);
-        txt_kategori.setText(null);
-        txt_komposisi1.setText(null);
-        txt_komposisi2.setText(null);
-        txt_komposisi3.setText(null);
-        txt_komposisi4.setText(null);
-        txt_jumlah1.setText(null);
-        txt_jumlah2.setText(null);
-        txt_jumlah3.setText(null);
-        txt_jumlah4.setText(null);
+        txt_komposisi.setText(null);
+        txt_jumlah.setText(null);
     }
+    
+    public void autoproduk() {
+        try {
+            String sql = "Select max(right(id_produk,3)) as no_auto from produk";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            if(rs.next()){
+                String no_auto,nol_plus;
+                int p;
+                no_auto = Integer.toString(rs.getInt(1)+1);
+                p = no_auto.length();
+                nol_plus = "";
+                for(int i = 1; i <= 3-p; i++ ){
+                    nol_plus = nol_plus + "0";
+                }
+                txt_idproduk.setText("KP" + nol_plus +no_auto);
+                
+            } else {
+                txt_idproduk.setText("KP001");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+//    public void autodetail() {
+//        try {
+//            String sql = "Select * From detail_produk";
+//            java.sql.Connection conn = (Connection) koneksi.getConnection();
+//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+//            ResultSet rs = pst.executeQuery();
+//
+//            while (rs.next()) {
+//                Object[] ob = new Object[1];
+//                ob[0] = rs.getString(1);
+//
+//                txt_iddetailproduk.setText((String) ob[0]);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+    
+    public void textmati() {
+//       cb_produk.setEnabled(false);
+//        txt_iddetailproduk.setEnabled(false);
+        txt_komposisi.setEnabled(false);
+        txt_idproduk.setEnabled(false);
+    }
+    
+    public void tampil_comboB() {
+        try {
+            String sql = "Select * From stok";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
 
+            while (rs.next()) {
+                cb_idbarang.addItem(rs.getString("id_stok"));
+
+            }
+            rs.last();
+            int jumlahdata = rs.getRow();
+            rs.first();
+        } catch (Exception e) {
+            System.out.println("GAGAL");
+        }
+    }
+    
+//    public void tampil_comboP() {
+//        try {
+//            String sql = "Select * From produk";
+//            java.sql.Connection conn = (Connection) koneksi.getConnection();
+//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+//            ResultSet rs = pst.executeQuery();
+//
+//            while (rs.next()) {
+//                cb_produk.addItem(rs.getString("id_produk"));
+//
+//            }
+//            rs.last();
+//            int jumlahdata = rs.getRow();
+//            rs.first();
+//        } catch (Exception e) {
+//            System.out.println("GAGAL");
+//        }
+//    }
+    
+    public void tampilB() {
+        try {
+            String sql = "Select nama_stok from stok where id_stok='" + cb_idbarang.getSelectedItem() + "'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Object[] ob = new Object[1];
+                ob[0] = rs.getString(1);
+
+                txt_komposisi.setText((String) ob[0]);
+            }
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+//    public void tampilP() {
+//        try {
+//            String sql = "Select nama_produk,harga_produk from produk where id_produk='" + txt_idproduk.getText() + "'";
+//            java.sql.Connection conn = (Connection) koneksi.getConnection();
+//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+//            ResultSet rs = pst.executeQuery();
+//
+//            while (rs.next()) {
+//                Object[] ob = new Object[2];
+//                ob[0] = rs.getString(1);
+//                ob[1] = rs.getString(2);
+//
+//                txt_nama.setText((String) ob[0]);
+//                txt_harga.setText((String) ob[1]);
+//            }
+//            rs.close();
+//            pst.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+    
+    public void showTable() {
+        try {
+            tbm = new DefaultTableModel(new String[]{ "ID PRODUK","NAMA PRODUK","HARGA PRODUK", "ID STOK"
+                ,"JUMLAH"}, 0);
+            ResultSet rs;
+            rs = db.selectproduk();
+            while (rs.next()) {
+                tbm.addRow(new Object[]{ rs.getString("id_produk"), rs.getString("nama_produk"), rs.getString("harga_produk"),rs.getString("id_stok"),
+                    rs.getString("jumlah_pakai")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(kelolaproduk.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbl_kelolaproduk.setModel(tbm);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,22 +214,18 @@ public class kelolaproduk extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txt_nama = new javax.swing.JTextField();
         txt_harga = new javax.swing.JTextField();
-        txt_kategori = new javax.swing.JTextField();
-        txt_komposisi1 = new javax.swing.JTextField();
-        txt_komposisi2 = new javax.swing.JTextField();
-        txt_komposisi3 = new javax.swing.JTextField();
-        txt_komposisi4 = new javax.swing.JTextField();
+        txt_komposisi = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txt_jumlah1 = new javax.swing.JTextField();
-        txt_jumlah2 = new javax.swing.JTextField();
-        txt_jumlah3 = new javax.swing.JTextField();
-        txt_jumlah4 = new javax.swing.JTextField();
+        txt_jumlah = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_kelolaproduk = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cb_idbarang = new javax.swing.JComboBox<>();
+        txt_idproduk = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btn_add = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
@@ -109,95 +258,130 @@ public class kelolaproduk extends javax.swing.JFrame {
 
         jLabel5.setText("HARGA");
 
-        jLabel6.setText("KATEGORI");
-
         jLabel7.setText("KOMPOSISI");
+
+        txt_harga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_hargaKeyTyped(evt);
+            }
+        });
+
+        txt_komposisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_komposisiActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("JUMLAH");
 
+        txt_jumlah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_jumlahActionPerformed(evt);
+            }
+        });
+        txt_jumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_jumlahKeyTyped(evt);
+            }
+        });
+
         tbl_kelolaproduk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "NAMA", "HARGA", "KATEGORI", "KOMPOSISI", "JUMLAH"
+                "1", "2", "3", "4"
             }
         ));
+        tbl_kelolaproduk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_kelolaprodukMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_kelolaproduk);
+
+        jLabel9.setText("ID PRODUK");
+
+        jLabel10.setText("ID BARANG");
+
+        cb_idbarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_idbarangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_komposisi4, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(txt_komposisi3)
-                    .addComponent(txt_komposisi2)
-                    .addComponent(txt_nama)
-                    .addComponent(txt_harga)
-                    .addComponent(txt_kategori)
-                    .addComponent(txt_komposisi1))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_jumlah4, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(txt_jumlah3)
-                    .addComponent(txt_jumlah2)
-                    .addComponent(txt_jumlah1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1147, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel9))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txt_harga)
+                            .addComponent(txt_idproduk))
+                        .addGap(160, 160, 160)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_idbarang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_komposisi, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9)
+                    .addComponent(txt_idproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(cb_idbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txt_komposisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txt_komposisi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txt_jumlah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_komposisi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_jumlah2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_komposisi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_jumlah3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_komposisi4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_jumlah4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txt_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(153, 153, 153)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btn_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/add.png"))); // NOI18N
@@ -215,6 +399,11 @@ public class kelolaproduk extends javax.swing.JFrame {
         });
 
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/delete.png"))); // NOI18N
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
 
         btn_change.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/remake.png"))); // NOI18N
 
@@ -340,7 +529,7 @@ public class kelolaproduk extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -370,7 +559,72 @@ public class kelolaproduk extends javax.swing.JFrame {
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
+        String nama;
+        String namabarang;
+        String idB,idP;
+        String jumlah = txt_jumlah.getText();;
+        int i = Integer.parseInt(jumlah);
+        String harga = txt_harga.getText();;
+        int j = Integer.parseInt(harga);
+        idP = txt_idproduk.getText();
+        idB = cb_idbarang.getSelectedItem().toString();
+        nama = txt_nama.getText();
+        namabarang = txt_komposisi.getText();
+        harga = txt_harga.getText();
+        db.insertproduk(nama, j, i, idB,idP);
+//        db.insertdproduk(idP, idB, jumlah);
+        reset();
+        showTable();
     }//GEN-LAST:event_btn_addActionPerformed
+
+    private void cb_idbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_idbarangActionPerformed
+        // TODO add your handling code here:
+        tampilB();
+    }//GEN-LAST:event_cb_idbarangActionPerformed
+
+    private void txt_komposisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_komposisiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_komposisiActionPerformed
+
+    private void txt_jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumlahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_jumlahActionPerformed
+
+    private void txt_jumlahKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_jumlahKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c)) && !(c == KeyEvent.VK_BACK_SPACE)){
+            JOptionPane.showMessageDialog(null, "Inputan hanya boleh angka", "Ilegal Input", JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_jumlahKeyTyped
+
+    private void txt_hargaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hargaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c)) && !(c == KeyEvent.VK_BACK_SPACE)){
+            JOptionPane.showMessageDialog(null, "Inputan hanya boleh angka", "Ilegal Input", JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_hargaKeyTyped
+
+    private void tbl_kelolaprodukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_kelolaprodukMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_kelolaproduk.getSelectedRow();
+        txt_idproduk.setText(tbl_kelolaproduk.getValueAt(row, 0).toString());
+        txt_nama.setText(tbl_kelolaproduk.getValueAt(row, 1).toString());
+        txt_harga.setText(tbl_kelolaproduk.getValueAt(row, 2).toString());
+        cb_idbarang.setSelectedItem(tbl_kelolaproduk.getValueAt(row, 3));
+        txt_jumlah.setText(tbl_kelolaproduk.getValueAt(row, 4).toString());
+    }//GEN-LAST:event_tbl_kelolaprodukMouseClicked
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // TODO add your handling code here:
+        String idD;
+        idD = txt_idproduk.getText();
+        db.deletestok(idD);
+        reset();
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,20 +664,23 @@ public class kelolaproduk extends javax.swing.JFrame {
         });
     }
 db_cafe db;
+DefaultTableModel tbm;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_change;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_logout;
+    private javax.swing.JComboBox<String> cb_idbarang;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -432,15 +689,9 @@ db_cafe db;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_kelolaproduk;
     private javax.swing.JTextField txt_harga;
-    private javax.swing.JTextField txt_jumlah1;
-    private javax.swing.JTextField txt_jumlah2;
-    private javax.swing.JTextField txt_jumlah3;
-    private javax.swing.JTextField txt_jumlah4;
-    private javax.swing.JTextField txt_kategori;
-    private javax.swing.JTextField txt_komposisi1;
-    private javax.swing.JTextField txt_komposisi2;
-    private javax.swing.JTextField txt_komposisi3;
-    private javax.swing.JTextField txt_komposisi4;
+    private javax.swing.JTextField txt_idproduk;
+    private javax.swing.JTextField txt_jumlah;
+    private javax.swing.JTextField txt_komposisi;
     private javax.swing.JTextField txt_nama;
     private javax.swing.JTextField txt_pendapatan;
     // End of variables declaration//GEN-END:variables

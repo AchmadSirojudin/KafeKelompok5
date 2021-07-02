@@ -53,17 +53,6 @@ public class db_cafe {
         }
     }
     
-    public ResultSet selectnamastok(){
-        try {
-            String sql = "select * from stok";
-            st = (Statement) con.createStatement();
-            rs = st.executeQuery(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
-    }
-    
     public ResultSet selectpegawai(){
         try {
             String sql = "select * from pegawai";
@@ -77,7 +66,7 @@ public class db_cafe {
     
     public ResultSet selectstok(){
         try {
-            String sql = "select * from stok inner join detail_stok on detail_stok.id_stok = stok.id_stok where detail_stok.id_detail_stok";
+            String sql = "select * from stok ";
             st = (Statement) con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -86,28 +75,15 @@ public class db_cafe {
         return rs;
     }
     
-    public void insertnamastok(String nama){
+    public ResultSet selectproduk(){
         try {
-            String sql = "insert into stok values (?,?,?)";
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, 0);
-            ps.setString(2, nama);
-            ps.setInt(3, 0);
-            ps.executeUpdate();
+            String sql = "select * from produk inner join detail_produk on detail_produk.id_produk = produk.id_produk where detail_produk.id_detail_produk";
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public void deletenamastok(String nama){
-        try {
-            String sql = "delete from stok where nama_stok=?";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, nama);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return rs;
     }
     
     public void deletepegawai(String nama){
@@ -123,7 +99,18 @@ public class db_cafe {
     
     public void deletestok(String idD){
         try {
-            String sql = "delete from detail_stok where id_detail_stok=?";
+            String sql = "delete from stok where id_stok=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, idD);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteproduk(String idD){
+        try {
+            String sql = "delete * from produk inner join detail_produk on detail_produk.id_produk = produk.id_produk where detail_produk.id_detail_produk";
             ps = con.prepareStatement(sql);
             ps.setString(1, idD);
             ps.executeUpdate();
@@ -150,11 +137,11 @@ public class db_cafe {
         }
     }
     
-    public void updatedstok(String jumlah, String idB, String nama){
+    public void updatestok(String jumlah, String id, String nama){
         try {
             String sql = "update stok set nama_stok=?,jumlah_stok=? where id_stok=?";
             ps = con.prepareStatement(sql);
-            ps.setString(3, idB);
+            ps.setString(3, id);
             ps.setString(1, nama);
             ps.setString(2, jumlah);
             ps.executeUpdate();
@@ -163,32 +150,72 @@ public class db_cafe {
         }
     }
     
+//    public void insertproduk(String nama,
+//                            String harga,String idP, String idB,
+//                            String jumlah){
+//        try {
+//            String sql = "insert into produk values (?,?,?) into detail_stok values (?,?,?)";
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, 0);
+//            ps.setString(2, nama);
+//            ps.setString(3, harga);
+//            
+//            ps.setString(4, idP);
+//            ps.setString(5, idB);
+//            ps.setString(6, jumlah);
+//            ps.execute();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
-    public void insertdstok(String nama,
-                            String tanggal, String idP, 
-                            String idB){
+//    public void insertdproduk(String idP, String idB,
+//                            String jumlah){
+//        try {
+//            String query = "insert into produk values (?,?,?,?)";
+//            ps = con.prepareStatement(query);
+//            ps.setInt(1, 0);
+//            ps.setString(2, idP);
+//            ps.setString(3, idB);
+//            ps.setString(4, jumlah);
+//            ps.executeUpdate();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+
+    public void insertstok(String nama, int i, String idB) {
         try {
-            String sql = "insert into detail_stok values (?,?,?,?)";
+            String sql = "insert into stok values (?,?,?)";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, 0);
-            ps.setString(2, idP);
-            ps.setString(3, idB);
-            ps.setString(4, tanggal);
+            ps.setString(1, idB);
+            ps.setString(2, nama);
+            ps.setInt(3, i);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void insertstok(String jumlah){
+
+    public void insertproduk(String nama, int j, int i, String idB, String idP) {
         try {
-            String sql = "insert into stok values (?,?,?=\"jumlah_stok + new.jumlah_input\")";
+            String sql = "insert into produk values (?,?,?)";
             ps = con.prepareStatement(sql);
+            ps.setString(1, idP);
+            ps.setString(2, nama);
+            ps.setInt(3, j);
+            ps.execute();
+            ps.close();
+            
+            String query = "insert into detail_produk values (?,?,?,?)";
+            ps = con.prepareStatement(query);
             ps.setInt(1, 0);
-            ps.setString(2, null);
-            ps.setString(3, jumlah); 
+            ps.setString(2, idP);
+            ps.setString(3, idB);
+            ps.setInt(4, i);
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-} 
+}
