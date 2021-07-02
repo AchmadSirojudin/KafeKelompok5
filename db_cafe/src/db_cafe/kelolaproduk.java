@@ -33,7 +33,7 @@ public class kelolaproduk extends javax.swing.JFrame {
         initComponents();
         showTable();
         tampil_comboB();
-//        tampil_comboP();
+        tampil_comboP();
         autoproduk();
 //        autodetail();
         textmati();
@@ -80,27 +80,27 @@ public class kelolaproduk extends javax.swing.JFrame {
             Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void autodetail() {
-        try {
-            String sql = "Select * From detail_produk";
-            java.sql.Connection conn = (Connection) koneksi.getConnection();
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                Object[] ob = new Object[1];
-                ob[0] = rs.getString(1);
-
-                txt_detail.setText((String) ob[0]);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void autodetail() {
+//        try {
+//            String sql = "Select * From detail_produk";
+//            java.sql.Connection conn = (Connection) koneksi.getConnection();
+//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+//            ResultSet rs = pst.executeQuery();
+//
+//            while (rs.next()) {
+//                Object[] ob = new Object[1];
+//                ob[0] = rs.getString(1);
+//
+//                txt_detail.setText((String) ob[0]);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public void textmati() {
 //       cb_produk.setEnabled(false);
-        txt_detail.setEnabled(false);
+//        txt_detail.setEnabled(false);
         txt_komposisi.setEnabled(false);
         txt_idproduk.setEnabled(false);
     }
@@ -124,24 +124,24 @@ public class kelolaproduk extends javax.swing.JFrame {
         }
     }
     
-//    public void tampil_comboP() {
-//        try {
-//            String sql = "Select * From produk";
-//            java.sql.Connection conn = (Connection) koneksi.getConnection();
-//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-//            ResultSet rs = pst.executeQuery();
-//
-//            while (rs.next()) {
-//                cb_produk.addItem(rs.getString("id_produk"));
-//
-//            }
-//            rs.last();
-//            int jumlahdata = rs.getRow();
-//            rs.first();
-//        } catch (Exception e) {
-//            System.out.println("GAGAL");
-//        }
-//    }
+    public void tampil_comboP() {
+        try {
+            String sql = "Select * From produk";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                cb_idproduk.addItem(rs.getString("id_produk"));
+
+            }
+            rs.last();
+            int jumlahdata = rs.getRow();
+            rs.first();
+        } catch (Exception e) {
+            System.out.println("GAGAL");
+        }
+    }
     
     public void tampilB() {
         try {
@@ -163,27 +163,27 @@ public class kelolaproduk extends javax.swing.JFrame {
         }
     }
     
-//    public void tampilP() {
-//        try {
-//            String sql = "Select nama_produk,harga_produk from produk where id_produk='" + txt_idproduk.getText() + "'";
-//            java.sql.Connection conn = (Connection) koneksi.getConnection();
-//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-//            ResultSet rs = pst.executeQuery();
-//
-//            while (rs.next()) {
-//                Object[] ob = new Object[2];
-//                ob[0] = rs.getString(1);
-//                ob[1] = rs.getString(2);
-//
-//                txt_nama.setText((String) ob[0]);
-//                txt_harga.setText((String) ob[1]);
-//            }
-//            rs.close();
-//            pst.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void tampilP() {
+        try {
+            String sql = "Select nama_produk,harga_produk from produk where id_produk='" + cb_idproduk.getSelectedItem() + "'";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Object[] ob = new Object[2];
+                ob[0] = rs.getString(1);
+                ob[1] = rs.getString(2);
+
+                txt_nama.setText((String) ob[0]);
+                txt_harga.setText((String) ob[1]);
+            }
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void showTable() {
         try {
@@ -227,7 +227,10 @@ public class kelolaproduk extends javax.swing.JFrame {
         cb_idbarang = new javax.swing.JComboBox<>();
         txt_idproduk = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_detail = new javax.swing.JTextField();
+        cb_idproduk = new javax.swing.JComboBox<>();
+        btn_ulang = new javax.swing.JButton();
+        btn_p = new javax.swing.JButton();
+        btn_tambahk = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btn_add = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
@@ -315,7 +318,34 @@ public class kelolaproduk extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("ID DETAIL");
+        jLabel6.setText("ID PRODUK");
+
+        cb_idproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_idprodukActionPerformed(evt);
+            }
+        });
+
+        btn_ulang.setText("MUAT ULANG");
+        btn_ulang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ulangActionPerformed(evt);
+            }
+        });
+
+        btn_p.setText("HAPUS PRODUK");
+        btn_p.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pActionPerformed(evt);
+            }
+        });
+
+        btn_tambahk.setText("TAMBAH KOMPOSISI");
+        btn_tambahk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -333,10 +363,12 @@ public class kelolaproduk extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel9))
                         .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                            .addComponent(txt_harga)
-                            .addComponent(txt_idproduk))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                .addComponent(txt_harga)
+                                .addComponent(txt_idproduk))
+                            .addComponent(btn_p))
                         .addGap(160, 160, 160)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -354,7 +386,11 @@ public class kelolaproduk extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cb_idbarang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txt_detail))))
+                                    .addComponent(cb_idproduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_ulang)
+                            .addComponent(btn_tambahk))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -372,14 +408,16 @@ public class kelolaproduk extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txt_detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cb_idproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_ulang))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(cb_idbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cb_idbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_tambahk))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -388,11 +426,16 @@ public class kelolaproduk extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
                         .addComponent(txt_komposisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txt_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(153, 153, 153)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txt_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btn_p)))
+                .addGap(135, 135, 135)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -419,6 +462,11 @@ public class kelolaproduk extends javax.swing.JFrame {
         });
 
         btn_change.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db_cafe/image/remake.png"))); // NOI18N
+        btn_change.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_changeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -584,10 +632,11 @@ public class kelolaproduk extends javax.swing.JFrame {
         nama = txt_nama.getText();
         namabarang = txt_komposisi.getText();
         harga = txt_harga.getText();
-        db.insertproduk(nama, j, i, idB,idP);
+        db.insertallproduk(nama, j, i, idB, idP);
 //        db.insertdproduk(idP, idB, jumlah);
         reset();
         showTable();
+        autoproduk();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void cb_idbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_idbarangActionPerformed
@@ -634,13 +683,59 @@ public class kelolaproduk extends javax.swing.JFrame {
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
         String idD,nama;
+        String harga;
+        harga = txt_harga.getText();
         idD = txt_idproduk.getText();
         nama = txt_nama.getText();
 //        idDD = txt_detail.getText();
         db.deleteproduk(idD,nama);
+//        db.del(harga);
         reset();
         showTable();
     }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void btn_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changeActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_btn_changeActionPerformed
+
+    private void cb_idprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_idprodukActionPerformed
+        // TODO add your handling code here:
+        tampilP();
+    }//GEN-LAST:event_cb_idprodukActionPerformed
+
+    private void btn_ulangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ulangActionPerformed
+        // TODO add your handling code here:
+        kelolaproduk kp = new kelolaproduk();
+            kp.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_btn_ulangActionPerformed
+
+    private void btn_tambahkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahkActionPerformed
+        // TODO add your handling code here:
+        String namabarang;
+        String idB,idP;
+        String jumlah = txt_jumlah.getText();;
+        int i = Integer.parseInt(jumlah);
+        idP = cb_idproduk.getSelectedItem().toString();
+        idB = cb_idbarang.getSelectedItem().toString();
+        namabarang = txt_komposisi.getText();
+        db.insertkomposisi(i, idB,idP);
+//        db.insertdproduk(idP, idB, jumlah);
+        reset();
+        showTable();
+    }//GEN-LAST:event_btn_tambahkActionPerformed
+
+    private void btn_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pActionPerformed
+        // TODO add your handling code here:
+        String idD;
+        idD = cb_idproduk.getSelectedItem().toString();
+//        idDD = txt_detail.getText();
+        db.delete(idD);
+//        db.del(harga);
+        reset();
+        showTable();
+    }//GEN-LAST:event_btn_pActionPerformed
 
     /**
      * @param args the command line arguments
@@ -687,7 +782,11 @@ DefaultTableModel tbm;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_logout;
+    private javax.swing.JButton btn_p;
+    private javax.swing.JButton btn_tambahk;
+    private javax.swing.JButton btn_ulang;
     private javax.swing.JComboBox<String> cb_idbarang;
+    private javax.swing.JComboBox<String> cb_idproduk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -705,7 +804,6 @@ DefaultTableModel tbm;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_kelolaproduk;
-    private javax.swing.JTextField txt_detail;
     private javax.swing.JTextField txt_harga;
     private javax.swing.JTextField txt_idproduk;
     private javax.swing.JTextField txt_jumlah;

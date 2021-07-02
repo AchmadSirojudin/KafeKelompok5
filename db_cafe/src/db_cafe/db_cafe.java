@@ -120,6 +120,17 @@ public class db_cafe {
         }
     }
     
+    public void delete(String idD){
+        try {
+            String sql = "delete from produk where id_produk=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, idD);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void updatepegawai(String id,String nama,String password,
                               String jeniskelamin,String alamat,
                               String status){
@@ -197,8 +208,23 @@ public class db_cafe {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void insertproduk(String nama, int j, int i, String idB, String idP) {
+    
+    public void insertkomposisi( int i, String idB, String idP) {
+        try {
+            
+            String query = "insert into detail_produk values (?,?,?,?)";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setString(2, idP);
+            ps.setString(3, idB);
+            ps.setInt(4, i);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertallproduk(String nama, int j, int i, String idB, String idP) {
         try {
             String sql = "insert into produk values (?,?,?)";
             ps = con.prepareStatement(sql);
@@ -219,6 +245,5 @@ public class db_cafe {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     
 }
