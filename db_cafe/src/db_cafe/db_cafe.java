@@ -77,7 +77,7 @@ public class db_cafe {
     
     public ResultSet selectproduk(){
         try {
-            String sql = "select * from produk inner join detail_produk on detail_produk.id_produk = produk.id_produk where detail_produk.id_detail_produk";
+            String sql = "select p.id_produk,nama_produk,harga_produk,id_stok,jumlah_pakai from produk p join detail_produk dp on p.id_produk = dp.id_produk";
             st = (Statement) con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -108,11 +108,12 @@ public class db_cafe {
         }
     }
     
-    public void deleteproduk(String idD){
+    public void deleteproduk(String idD,String nama){
         try {
-            String sql = "delete * from produk inner join detail_produk on detail_produk.id_produk = produk.id_produk where detail_produk.id_detail_produk";
+            String sql = "delete detail_produk from detail_produk inner join produk on (detail_produk.id_produk = produk.id_produk) where produk.id_produk =? and produk.nama_produk=?";
             ps = con.prepareStatement(sql);
             ps.setString(1, idD);
+            ps.setString(2, nama);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,4 +219,6 @@ public class db_cafe {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
 }
