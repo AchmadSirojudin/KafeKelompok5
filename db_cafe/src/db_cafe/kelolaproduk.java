@@ -35,7 +35,7 @@ public class kelolaproduk extends javax.swing.JFrame {
         tampil_comboB();
         tampil_comboP();
         autoproduk();
-//        autodetail();
+        autodetail();
         textmati();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
@@ -80,27 +80,27 @@ public class kelolaproduk extends javax.swing.JFrame {
             Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//    public void autodetail() {
-//        try {
-//            String sql = "Select * From detail_produk";
-//            java.sql.Connection conn = (Connection) koneksi.getConnection();
-//            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-//            ResultSet rs = pst.executeQuery();
-//
-//            while (rs.next()) {
-//                Object[] ob = new Object[1];
-//                ob[0] = rs.getString(1);
-//
-//                txt_detail.setText((String) ob[0]);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void autodetail() {
+        try {
+            String sql = "Select * From detail_produk";
+            java.sql.Connection conn = (Connection) koneksi.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Object[] ob = new Object[1];
+                ob[0] = rs.getString(1);
+
+                txt_detail.setText((String) ob[0]);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void textmati() {
 //       cb_produk.setEnabled(false);
-//        txt_detail.setEnabled(false);
+        txt_detail.setEnabled(false);
         txt_komposisi.setEnabled(false);
         txt_idproduk.setEnabled(false);
     }
@@ -231,6 +231,8 @@ public class kelolaproduk extends javax.swing.JFrame {
         btn_ulang = new javax.swing.JButton();
         btn_p = new javax.swing.JButton();
         btn_tambahk = new javax.swing.JButton();
+        txt_detail = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btn_add = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
@@ -347,6 +349,8 @@ public class kelolaproduk extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("DETAIL");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -389,9 +393,16 @@ public class kelolaproduk extends javax.swing.JFrame {
                                     .addComponent(cb_idproduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_ulang)
-                            .addComponent(btn_tambahk))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_tambahk)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_ulang)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -412,7 +423,9 @@ public class kelolaproduk extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(cb_idproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_ulang))
+                            .addComponent(btn_ulang)
+                            .addComponent(txt_detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -435,8 +448,8 @@ public class kelolaproduk extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(btn_p)))
-                .addGap(135, 135, 135)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -696,7 +709,14 @@ public class kelolaproduk extends javax.swing.JFrame {
 
     private void btn_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changeActionPerformed
         // TODO add your handling code here:
+        String id,nama,harga,jumlah;
+        harga = txt_harga.getText();
+        nama = txt_nama.getText();
+        jumlah = txt_jumlah.getText();
+        id = txt_detail.getText();
+        db.updateproduk(jumlah, id, nama, harga);
         reset();
+        showTable();
     }//GEN-LAST:event_btn_changeActionPerformed
 
     private void cb_idprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_idprodukActionPerformed
@@ -789,6 +809,7 @@ DefaultTableModel tbm;
     private javax.swing.JComboBox<String> cb_idproduk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -804,6 +825,7 @@ DefaultTableModel tbm;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_kelolaproduk;
+    private javax.swing.JTextField txt_detail;
     private javax.swing.JTextField txt_harga;
     private javax.swing.JTextField txt_idproduk;
     private javax.swing.JTextField txt_jumlah;

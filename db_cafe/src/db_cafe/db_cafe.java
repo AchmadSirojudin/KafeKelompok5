@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,6 +116,8 @@ public class db_cafe {
             ps.setString(1, idD);
             ps.setString(2, nama);
             ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Harap Muat Ulang Untuk Menghapus Produk", "BERHASIL", JOptionPane.OK_OPTION);
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,6 +162,20 @@ public class db_cafe {
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateproduk(String jumlah, String id, String nama,String harga){
+        try {
+            String sql = "update detail_produk dp inner join produk p on dp.id_produk = p.id_produk set nama_produk=?,harga_produk=?,jumlah_pakai=? where id_detail_produk=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(4, id);
+            ps.setString(1, nama);
+            ps.setString(2, harga);
+            ps.setString(3, jumlah);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -220,7 +237,7 @@ public class db_cafe {
             ps.setInt(4, i);
             ps.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -241,8 +258,10 @@ public class db_cafe {
             ps.setString(3, idB);
             ps.setInt(4, i);
             ps.execute();
+            
+            JOptionPane.showMessageDialog(null, "Harap Muat Ulang Untuk Menambah Komposisi", "BERHASIL", JOptionPane.OK_OPTION);
         } catch (SQLException ex) {
-            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
     
