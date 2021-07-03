@@ -76,6 +76,17 @@ public class db_cafe {
         return rs;
     }
     
+    public ResultSet selectprodukt(){
+        try {
+            String sql = "select * from produk ";
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
     public ResultSet selectproduk(){
         try {
             String sql = "select p.id_produk,nama_produk,harga_produk,id_stok,jumlah_pakai from produk p join detail_produk dp on p.id_produk = dp.id_produk";
