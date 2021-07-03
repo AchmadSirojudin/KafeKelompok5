@@ -7,6 +7,7 @@ package db_cafe;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -69,7 +70,8 @@ public class pegawai extends javax.swing.JFrame {
         tbl_pegawai.setModel(tbm);
 
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

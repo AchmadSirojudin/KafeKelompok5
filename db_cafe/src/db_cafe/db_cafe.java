@@ -36,12 +36,12 @@ public class db_cafe {
         }
     }
     
-    public void insert(String nama, String password, 
+    public void insert(String id,String nama, String password, 
                        String alamat, String jenisKelamin, String status){
         try {
             String sql = "insert into pegawai values (?,?,?,?,?,?)";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, 0);
+            ps.setString(1, id);
             ps.setString(2, nama);
             ps.setString(5, password);
             ps.setString(4, alamat);
@@ -275,5 +275,29 @@ public class db_cafe {
             JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+//    public void insertalltransaksi(String ket, int j, int i, String idb, String idp,String idt) {
+//        try {
+//            String sql = "insert into transaksi values (?,?,?,?)";
+//            ps = con.prepareStatement(sql);
+//            ps.setString(1, idt);
+//            ps.setString(2, idp);
+//            ps.setString(3, ket);
+//            ps.setInt(4, i);
+//            ps.execute();
+//            ps.close();
+//            
+//            String query = "insert into detail_transaksi values (?,?,?)";
+//            ps = con.prepareStatement(query);
+//            ps.setString(1, idt);
+//            ps.setString(2, idb);
+//            ps.setInt(3, i);
+//            ps.execute();
+//            
+//            
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
     
 }
