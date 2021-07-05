@@ -257,13 +257,9 @@ public class menu extends javax.swing.JFrame {
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         // TODO add your handling code here:
-        try {
-            File namafile = new File("src/reportdbCafe/report_pegawai.jasper");
-            JasperPrint jp = JasperFillManager.fillReport(namafile.getPath(), null, koneksi.getConnection());
-            JasperViewer.viewReport(jp, false);
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, e);
-        }
+        laporan lp = new laporan();
+        lp.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_btn_laporanActionPerformed
 

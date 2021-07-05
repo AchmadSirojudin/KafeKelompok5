@@ -52,10 +52,8 @@
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btn_laporanpegawai" pref="1260" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btn_laporantransaksi" pref="1260" max="32767" attributes="0"/>
-                          <Component id="btn_laporanstok" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btn_laporantransaksi" pref="1260" max="32767" attributes="0"/>
+                      <Component id="btn_laporanstok" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -222,6 +220,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LAPORAN PEGAWAI"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_laporanpegawaiActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -5,8 +5,13 @@
  */
 package db_cafe;
 
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -126,6 +131,11 @@ public class laporan extends javax.swing.JFrame {
 
         btn_laporanpegawai.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         btn_laporanpegawai.setText("LAPORAN PEGAWAI");
+        btn_laporanpegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporanpegawaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,9 +147,8 @@ public class laporan extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_laporanpegawai, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btn_laporantransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
-                        .addComponent(btn_laporanstok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btn_laporantransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(btn_laporanstok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,6 +191,17 @@ public class laporan extends javax.swing.JFrame {
         dispose();
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_laporanpegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanpegawaiActionPerformed
+        // TODO add your handling code here:
+        try {
+            File namafile = new File("src/reportdbCafe/report_pegawai.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(namafile.getPath(), null, koneksi.getConnection());
+            JasperViewer.viewReport(jp, false);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_btn_laporanpegawaiActionPerformed
 
     /**
      * @param args the command line arguments
