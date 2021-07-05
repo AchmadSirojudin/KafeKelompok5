@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82ddad1b-8d5a-474f-ba6e-5cb0921506b8">
-	<property name="ireport.zoom" value="2.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e9bc0f80-b50c-4273-8bdb-c5a132673148">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
 	<queryString language="SQL">
 		<![CDATA[select * from pegawai]]>
 	</queryString>
-	<field name="id_pegawai" class="java.lang.Integer">
+	<field name="id_pegawai" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="username" class="java.lang.String">
@@ -25,106 +35,137 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="143" splitType="Stretch">
+		<band height="136" splitType="Stretch">
 			<staticText>
-				<reportElement x="159" y="31" width="234" height="72" uuid="878d9761-9f8f-4228-ae5e-5fc026714a9f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="24" isBold="true"/>
+				<reportElement style="Title" x="170" y="0" width="263" height="62" uuid="6c514027-a86f-4e67-b36e-0e4b788f59bf"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[REPORT PEGAWAI]]></text>
+				<text><![CDATA[Coffee Title]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="219" y="62" width="196" height="22" uuid="7b17581c-b213-4a67-92ba-df756d1c0a84"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="94" width="383" height="42" uuid="5854b6f4-c1dc-4b5a-98e3-73c3e4ea136a"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="330" height="127" uuid="0ca810c2-9448-4aaa-8168-45236eecda88"/>
+				<imageExpression><![CDATA["C:\\Users\\Asus\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\src\\db_cafe\\coffee.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="433" y="-64" width="281" height="158" uuid="175097d1-d8d1-4ba1-b21c-3f20b5356fbb"/>
+				<imageExpression><![CDATA["C:\\Users\\Asus\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\src\\db_cafe\\coffee_stain.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
 	<columnHeader>
-		<band height="21" splitType="Stretch">
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="18b4583f-6422-4196-aeca-213f1eae4239"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
 			<staticText>
-				<reportElement x="3" y="0" width="110" height="20" uuid="99446b0f-7d77-4403-80f4-208561ad07b6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ID]]></text>
+				<reportElement style="Column header" x="0" y="0" width="111" height="15" forecolor="#736343" uuid="cf17ad86-7e28-4473-b882-47e5dd74019e"/>
+				<text><![CDATA[id_pegawai]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="113" y="0" width="110" height="20" uuid="1184f7d1-8736-4adc-9ba1-37f05f12610b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[USERNAME]]></text>
+				<reportElement style="Column header" x="111" y="0" width="111" height="15" forecolor="#736343" uuid="5294a6d8-8f89-420a-b174-6a9898ff3d1a"/>
+				<text><![CDATA[username]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="223" y="0" width="110" height="20" uuid="b1ad4d79-a57f-4acb-929d-5125edddba66"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[JENIS KELAMIN]]></text>
+				<reportElement style="Column header" x="222" y="0" width="111" height="15" forecolor="#736343" uuid="c4c08542-d4e5-46ac-8bc8-1d917a6fd79d"/>
+				<text><![CDATA[jenis_kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="0" width="139" height="20" uuid="c51edd2a-b0fd-4264-9dbd-57d4059b1014"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ALAMAT]]></text>
+				<reportElement style="Column header" x="333" y="0" width="111" height="15" forecolor="#736343" uuid="2bb5077f-76c9-40bf-9486-10c271226cb7"/>
+				<text><![CDATA[alamat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="472" y="0" width="81" height="20" uuid="4281478d-5ca9-4b8d-b1e0-656b315bc659"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[STATUS]]></text>
+				<reportElement style="Column header" x="444" y="0" width="111" height="15" forecolor="#736343" uuid="0c85f6f5-55c8-440d-82b8-524393184416"/>
+				<text><![CDATA[status]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="3" y="0" width="110" height="20" uuid="e5757144-0ff4-4bba-9b7d-ce9c5fa269ba"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{id_pegawai}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="223" y="0" width="110" height="20" uuid="fe37b5c7-5240-48a6-80f0-45bf450b53be"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="472" y="0" width="81" height="20" uuid="6947f07b-2b29-46bb-9509-316088ce6a20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="113" y="0" width="110" height="20" uuid="3762d41f-d38d-460d-96df-d85db90036e5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="333" y="0" width="139" height="20" uuid="ebd4fe83-9b14-4681-be07-0c1930f0b38e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
-			</textField>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="b894cf03-993f-4291-ad46-d470cb5a8723"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="75c71f4d-f3f9-4111-b967-e3048b53999d"/>
+					<textFieldExpression><![CDATA[$F{id_pegawai}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="94bf9742-6bda-475d-861f-2f8cd1c085ec"/>
+					<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="3a5b00c0-7397-4826-8303-4067efaf5611"/>
+					<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="ebd266e3-f73a-41a7-82ca-02bd334a8467"/>
+					<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="c6a7d7b6-16bf-4320-9b84-04356434a8d9"/>
+					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="29969219-4a2d-4789-8cc9-8d1293899d20"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="13" y="15" width="100" height="20" uuid="0ca14bbc-7207-42c8-aeed-bd45d62c728c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="15" width="100" height="20" uuid="19074cee-f7f7-4f37-a4b1-6b5f0b486d18"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="79e1c491-2437-45b2-a9a1-185e21b98972"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="aae8ef56-cbc0-466b-8105-4ee0ea110ecc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="f27ff252-d7e5-4d43-a10e-b53c881be7e4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="390b044d-55d5-44ef-8479-864f1d3ab074"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
 </jasperReport>
