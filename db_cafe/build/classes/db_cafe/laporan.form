@@ -204,6 +204,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LAPORAN STOK"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_laporanstokActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_laporantransaksi">
           <Properties>
@@ -212,6 +215,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LAPORAN TRANSAKSI"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_laporantransaksiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_laporanpegawai">
           <Properties>

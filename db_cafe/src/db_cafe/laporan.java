@@ -5,12 +5,19 @@
  */
 package db_cafe;
 
+import com.sun.istack.internal.logging.Logger;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -125,9 +132,19 @@ public class laporan extends javax.swing.JFrame {
 
         btn_laporanstok.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         btn_laporanstok.setText("LAPORAN STOK");
+        btn_laporanstok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporanstokActionPerformed(evt);
+            }
+        });
 
         btn_laporantransaksi.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         btn_laporantransaksi.setText("LAPORAN TRANSAKSI");
+        btn_laporantransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporantransaksiActionPerformed(evt);
+            }
+        });
 
         btn_laporanpegawai.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         btn_laporanpegawai.setText("LAPORAN PEGAWAI");
@@ -194,14 +211,92 @@ public class laporan extends javax.swing.JFrame {
 
     private void btn_laporanpegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanpegawaiActionPerformed
         // TODO add your handling code here:
+        Connection conn = null;
+        
         try {
-            File namafile = new File("src/reportdbCafe/report_pegawai.jasper");
-            JasperPrint jp = JasperFillManager.fillReport(namafile.getPath(), null, koneksi.getConnection());
-            JasperViewer.viewReport(jp, false);
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_cafe","root","");
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String location = "C:\\Users\\Asus\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
+        String file = location+"src\\db_cafe\\reportpegawai.jrxml";
+        JasperReport jr;
+        
+        try {
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
+        } catch (JRException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_laporanpegawaiActionPerformed
+
+    private void btn_laporanstokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanstokActionPerformed
+        // TODO add your handling code here:
+        Connection conn = null;
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_cafe","root","");
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String location = "C:\\Users\\Asus\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
+        String file = location+"src\\db_cafe\\reportstok.jrxml";
+        JasperReport jr;
+        
+        try {
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
+        } catch (JRException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btn_laporanstokActionPerformed
+
+    private void btn_laporantransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporantransaksiActionPerformed
+        // TODO add your handling code here:
+        Connection conn = null;
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_cafe","root","");
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String location = "C:\\Users\\Asus\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
+        String file = location+"src\\db_cafe\\reporttransaksi.jrxml";
+        JasperReport jr;
+        
+        try {
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
+        } catch (JRException ex) {
+            java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btn_laporantransaksiActionPerformed
 
     /**
      * @param args the command line arguments
