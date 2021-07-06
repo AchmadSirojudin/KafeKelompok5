@@ -200,7 +200,7 @@ public class transaksi extends javax.swing.JFrame {
     
     private void cariData(String key){
         try{
-            Object[] judul_kolom = {"Kode Barang", "Nama Barang", "Satuan", "Harga", "Stok", "Create Date"};
+            Object[] judul_kolom = {"ID PRODUK","NAMA PRODUK","HARGA PRODUK","ID STOK"};
             tabModel =new DefaultTableModel(null,judul_kolom);
             tbl_produk.setModel(tabModel);
             
@@ -208,7 +208,8 @@ public class transaksi extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             tabModel.getDataVector().removeAllElements();
             
-            RsProduk=stt.executeQuery("SELECT * from produk WHERE id_produk LIKE '%"+key+"%' OR nama_produk LIKE '%"+key+"%' OR harga_produk LIKE '%"+key+"%'");  
+//            RsProduk=stt.executeQuery("SELECT * from produk WHERE id_produk LIKE '%"+key+"%' OR nama_produk LIKE '%"+key+"%' OR harga_produk LIKE '%"+key+"%'");  
+             RsProduk=stt.executeQuery("select p.id_produk,nama_produk,harga_produk,id_stok,jumlah_pakai from produk p join detail_produk dp on p.id_produk = dp.id_produk and dp.id_produk LIKE '%"+key+"%' OR p.nama_produk LIKE '%"+key+"%' OR p.harga_produk LIKE '%"+key+"%' OR dp.id_stok LIKE '%" + key + "%'");
             while(RsProduk.next()){
                 Object[] data={
                     RsProduk.getString("id_produk"),
