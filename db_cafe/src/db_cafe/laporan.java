@@ -6,6 +6,8 @@
 package db_cafe;
 
 import com.sun.istack.internal.logging.Logger;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,6 +33,15 @@ public class laporan extends javax.swing.JFrame {
      */
     public laporan() {
         initComponents();
+        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        if (frameSize.height > screenSize.height){
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width){
+            frameSize.width = screenSize.width;
+        }this.setLocation((screenSize.width - frameSize.width) /  2, 
+              (screenSize.height - frameSize.height) / 2);
     }
 
     /**
