@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -21,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author LIO SYAFRIZA
  */
 public class pegawai extends javax.swing.JFrame {
-
+    int waktumulai = 0;
     /**
      * Creates new form pegawai
      */
@@ -40,6 +42,26 @@ public class pegawai extends javax.swing.JFrame {
             frameSize.width = screenSize.width;
         }this.setLocation((screenSize.width - frameSize.width) /  2, 
               (screenSize.height - frameSize.height) / 2);
+        
+        new Thread(){
+            @Override
+            public void run(){
+              while(waktumulai == 0){
+                Calendar kalender = new GregorianCalendar();
+                    int jam = kalender.get(Calendar.HOUR);
+                    int menit = kalender.get(Calendar.MINUTE);
+                    int AM_PM = kalender.get(Calendar.AM_PM);
+                    String siang_malam ="";
+             if(AM_PM == 1){
+                    siang_malam="PM"; 
+             }else{
+                    siang_malam = "AM";   
+                  }
+             String time = jam + " " + menit + " " + " " + siang_malam;
+             lb_jam.setText(time);               
+              }  
+            }
+        }.start();
     }
     
     public void reset(){
@@ -56,13 +78,13 @@ public class pegawai extends javax.swing.JFrame {
     public void showTable(){        
         try {
             tbm = new DefaultTableModel(new String[]{"ID","NAMA PEGAWAI","PASSWORD","ALAMAT"
-                                                     ,"JENIS KELAMIN","STATUS"},0);
+                                                     ,"JENIS KELAMIN","STATUS","ABSEN"},0);
             ResultSet rs;
             rs = db.selectpegawai();
             while(rs.next()){
                 tbm.addRow(new Object[]{rs.getString("id_pegawai"),rs.getString("username"),rs.getString("password"),
                                         rs.getString("alamat"),rs.getString("jenis_kelamin"),
-                                        rs.getString("status")});
+                                        rs.getString("status"),rs.getString("jam")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(pegawai.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,6 +115,7 @@ public class pegawai extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txt_pendapatan = new javax.swing.JTextField();
+        lb_jam = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -189,6 +212,8 @@ public class pegawai extends javax.swing.JFrame {
 
         jLabel4.setText("PENDAPATAN PERBULAN : ");
 
+        lb_jam.setText("JAM");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -198,7 +223,9 @@ public class pegawai extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lb_jam, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +233,8 @@ public class pegawai extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(lb_jam))
                 .addContainerGap())
         );
 
@@ -338,7 +366,7 @@ public class pegawai extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txt_id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -444,11 +472,12 @@ public class pegawai extends javax.swing.JFrame {
 
     private void btn_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changeActionPerformed
         // TODO add your handling code here:
-        String id,nama,password,jeniskelamin,alamat,status;
+        String id,nama,password,jeniskelamin,alamat,status,absen;
         id = txt_id.getText();
         nama = txt_namapegawai.getText();
         alamat = txt_alamat.getText();
         password = txt_password.getText();
+        absen = lb_jam.getText();
         jeniskelamin = null;
         if(rb_l.isSelected()){
             jeniskelamin = "Laki-Laki";
@@ -461,7 +490,7 @@ public class pegawai extends javax.swing.JFrame {
         }else if(rb_pegawai.isSelected()){
             status = "Pegawai";
         }
-        db.updatepegawai(id,nama,password,jeniskelamin,alamat,status);
+        db.updatepegawai(id,nama,password,jeniskelamin,alamat,status,absen);
         reset();
         showTable();
     }//GEN-LAST:event_btn_changeActionPerformed
@@ -527,6 +556,7 @@ DefaultTableModel tbm;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_jam;
     private javax.swing.JRadioButton rb_admin;
     private javax.swing.JRadioButton rb_l;
     private javax.swing.JRadioButton rb_p;

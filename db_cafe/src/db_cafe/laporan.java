@@ -236,7 +236,7 @@ public class laporan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String location = "D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\";
+        String location = "C:\\Users\\eldia\\OneDrive\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
         String file = location+"src\\db_cafe\\reportpegawai.jrxml";
         JasperReport jr;
         
@@ -265,7 +265,7 @@ public class laporan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String location = "D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\";
+        String location = "C:\\Users\\eldia\\OneDrive\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
         String file = location+"src\\db_cafe\\reportstok.jrxml";
         JasperReport jr;
         
@@ -295,7 +295,7 @@ public class laporan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String location = "D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\";
+        String location = "C:\\Users\\eldia\\OneDrive\\Documents\\GitHub\\KafeKelompok5\\db_cafe\\";
         String file = location+"src\\db_cafe\\reporttransaksi.jrxml";
         JasperReport jr;
         

@@ -39,7 +39,7 @@ public class db_cafe {
     public void insert(String id,String nama, String password, 
                        String alamat, String jenisKelamin, String status){
         try {
-            String sql = "insert into pegawai values (?,?,?,?,?,?)";
+            String sql = "insert into pegawai values (?,?,?,?,?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
             ps.setString(2, nama);
@@ -47,6 +47,7 @@ public class db_cafe {
             ps.setString(4, alamat);
             ps.setString(3, jenisKelamin);
             ps.setString(6, status);
+            ps.setString(7, null);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,16 +148,17 @@ public class db_cafe {
     
     public void updatepegawai(String id,String nama,String password,
                               String jeniskelamin,String alamat,
-                              String status){
+                              String status,String absen){
         try {
-            String sql = "update pegawai set username=?,jenis_kelamin=?,alamat=?,password=?,status=? where id_pegawai=?";
+            String sql = "update pegawai set username=?,jenis_kelamin=?,alamat=?,password=?,status=?,jam=? where id_pegawai=?";
             ps = con.prepareStatement(sql);
-            ps.setString(6, id);
+            ps.setString(7, id);
             ps.setString(1, nama);
             ps.setString(4, password);
             ps.setString(3, alamat);
             ps.setString(2, jeniskelamin);
             ps.setString(5, status);
+            ps.setString(6, absen);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);

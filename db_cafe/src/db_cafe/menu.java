@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
@@ -23,7 +25,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author LIO SYAFRIZA
  */
 public class menu extends javax.swing.JFrame {
-
+    int waktumulai = 0;
     /**
      * Creates new form menu
      */
@@ -151,7 +153,7 @@ public class menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(181, 181, 181)
+                .addGap(186, 186, 186)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_logout)
@@ -316,7 +318,7 @@ public class menu extends javax.swing.JFrame {
             }
         });
     }
-
+db_cafe db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_kelolaproduk;
     private javax.swing.JButton btn_laporan;

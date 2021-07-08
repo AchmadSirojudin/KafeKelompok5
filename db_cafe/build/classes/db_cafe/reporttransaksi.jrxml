@@ -54,14 +54,6 @@
 				</textElement>
 				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
 			</staticText>
-			<image>
-				<reportElement uuid="7ca84920-b895-4fd7-ba21-6bf7b311030b" x="410" y="-13" width="166" height="149"/>
-				<imageExpression><![CDATA["D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\src\\db_cafe\\coffee_stain.png"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement uuid="01b47dba-2a32-4ded-b598-9f28e2b55a0a" x="1" y="12" width="138" height="173"/>
-				<imageExpression><![CDATA["D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\src\\db_cafe\\coffee.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e9bc0f80-b50c-4273-8bdb-c5a132673148">
-	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.zoom" value="1.4641000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -57,14 +57,6 @@
 				</textElement>
 				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
 			</staticText>
-			<image>
-				<reportElement uuid="56db0d38-6125-4ea4-953f-def956bff886" x="1" y="11" width="160" height="115"/>
-				<imageExpression><![CDATA["D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\src\\db_cafe\\coffee.jpg"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement uuid="e88eb97a-6c40-41bd-b00a-4f1e8ede0a9e" x="432" y="-10" width="596" height="136"/>
-				<imageExpression><![CDATA["D:\\1.AKU\\KULIAH\\WSIBD\\Kelompok5\\db_cafe\\src\\db_cafe\\coffee_stain.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
