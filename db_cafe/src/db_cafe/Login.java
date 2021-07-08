@@ -159,11 +159,19 @@ public class Login extends javax.swing.JFrame {
 	    String sql = "SELECT * FROM pegawai WHERE username='"+txt_id.getText()+"' AND password='"+txt_password.getText()+"'";
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
+                String status = rs.getString("status");
                 if(txt_id.getText().equals(rs.getString("username")) && txt_password.getText().equals(rs.getString("password"))){
+                    if(status.equals("Admin")){
                     JOptionPane.showMessageDialog(null, "berhasil login");
                     menu lg = new menu();
                     lg.setVisible(true);
                     dispose();
+                    } else if(status.equals("Pegawai")){
+                    JOptionPane.showMessageDialog(null, "berhasil login");
+                    menu1 lg = new menu1();
+                    lg.setVisible(true);
+                    dispose();
+                    }
                 }
             }else{
                     JOptionPane.showMessageDialog(null, "username atau password salah");

@@ -37,7 +37,7 @@ public class db_cafe {
     }
     
     public void insert(String id,String nama, String password, 
-                       String alamat, String jenisKelamin, String status){
+                       String alamat, String jenisKelamin, String status,String absen){
         try {
             String sql = "insert into pegawai values (?,?,?,?,?,?,?)";
             ps = con.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class db_cafe {
             ps.setString(4, alamat);
             ps.setString(3, jenisKelamin);
             ps.setString(6, status);
-            ps.setString(7, null);
+            ps.setString(7, absen);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);

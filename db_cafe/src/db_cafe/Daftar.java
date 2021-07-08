@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class Daftar extends javax.swing.JFrame {
 
+    int waktumulai = 0;
     /**
      * Creates new form Daftar
      */
@@ -37,6 +40,26 @@ public class Daftar extends javax.swing.JFrame {
             frameSize.width = screenSize.width;
         }this.setLocation((screenSize.width - frameSize.width) /  2, 
               (screenSize.height - frameSize.height) / 2);
+        
+        new Thread(){
+            @Override
+            public void run(){
+              while(waktumulai == 0){
+                Calendar kalender = new GregorianCalendar();
+                    int jam = kalender.get(Calendar.HOUR);
+                    int menit = kalender.get(Calendar.MINUTE);
+                    int AM_PM = kalender.get(Calendar.AM_PM);
+                    String siang_malam ="";
+             if(AM_PM == 1){
+                    siang_malam="PM"; 
+             }else{
+                    siang_malam = "AM";   
+                  }
+             String time = jam + " " + menit + " " + " " + siang_malam;
+             lb_jam.setText(time);               
+              }  
+            }
+        }.start();
     }
     public void reset(){
         txt_namapegawai.setText(null);
@@ -107,6 +130,7 @@ public class Daftar extends javax.swing.JFrame {
         rb_pegawai = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         txt_id = new javax.swing.JTextField();
+        lb_jam = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,6 +186,8 @@ public class Daftar extends javax.swing.JFrame {
 
         jLabel6.setText("ID");
 
+        lb_jam.setText("JAM");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,7 +196,9 @@ public class Daftar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb_jam, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -203,14 +231,17 @@ public class Daftar extends javax.swing.JFrame {
                                     .addComponent(rb_pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rb_perempuan)))
                             .addComponent(txt_alamat, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(txt_id))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(txt_id))
+                        .addGap(0, 38, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_jam))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -260,11 +291,12 @@ public class Daftar extends javax.swing.JFrame {
 
     private void btn_daftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_daftarActionPerformed
         // TODO add your handling code here:
-        String id,nama,password,alamat,jenisKelamin,status;
+        String id,nama,password,alamat,jenisKelamin,status,absen;
         id = txt_id.getText();
         nama = txt_namapegawai.getText();
         password = txt_password.getText();
         alamat = txt_alamat.getText();
+        absen = lb_jam.getText();
         jenisKelamin = null;
         if(rb_laki.isSelected()){
             jenisKelamin = "Laki-Laki";
@@ -277,7 +309,7 @@ public class Daftar extends javax.swing.JFrame {
         }else if(rb_pegawai.isSelected()){
             status = "Pegawai";
         }
-        db.insert(id,nama,password,alamat,jenisKelamin,status);
+        db.insert(id,nama,password,alamat,jenisKelamin,status,absen);
         reset();
         autopegawai();
     }//GEN-LAST:event_btn_daftarActionPerformed
@@ -348,6 +380,7 @@ public class Daftar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lb_jam;
     private javax.swing.JRadioButton rb_admin;
     private javax.swing.JRadioButton rb_laki;
     private javax.swing.JRadioButton rb_pegawai;
