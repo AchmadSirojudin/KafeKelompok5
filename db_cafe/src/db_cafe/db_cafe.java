@@ -68,7 +68,7 @@ public class db_cafe {
     
     public ResultSet selectstok(){
         try {
-            String sql = "select * from stok ";
+            String sql = "select * from stok";
             st = (Statement) con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -191,40 +191,6 @@ public class db_cafe {
             JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-//    public void insertproduk(String nama,
-//                            String harga,String idP, String idB,
-//                            String jumlah){
-//        try {
-//            String sql = "insert into produk values (?,?,?) into detail_stok values (?,?,?)";
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, 0);
-//            ps.setString(2, nama);
-//            ps.setString(3, harga);
-//            
-//            ps.setString(4, idP);
-//            ps.setString(5, idB);
-//            ps.setString(6, jumlah);
-//            ps.execute();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
-//    public void insertdproduk(String idP, String idB,
-//                            String jumlah){
-//        try {
-//            String query = "insert into produk values (?,?,?,?)";
-//            ps = con.prepareStatement(query);
-//            ps.setInt(1, 0);
-//            ps.setString(2, idP);
-//            ps.setString(3, idB);
-//            ps.setString(4, jumlah);
-//            ps.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(db_cafe.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 
     public void insertstok(String nama, int i, String idB) {
         try {
@@ -277,29 +243,5 @@ public class db_cafe {
             JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-//    public void insertalltransaksi(String ket, int j, int i, String idb, String idp,String idt) {
-//        try {
-//            String sql = "insert into transaksi values (?,?,?,?)";
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, idt);
-//            ps.setString(2, idp);
-//            ps.setString(3, ket);
-//            ps.setInt(4, i);
-//            ps.execute();
-//            ps.close();
-//            
-//            String query = "insert into detail_transaksi values (?,?,?)";
-//            ps = con.prepareStatement(query);
-//            ps.setString(1, idt);
-//            ps.setString(2, idb);
-//            ps.setInt(3, i);
-//            ps.execute();
-//            
-//            
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Harap Muat Ulang", "GAGAL", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
     
 }

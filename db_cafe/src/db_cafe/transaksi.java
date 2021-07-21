@@ -45,7 +45,7 @@ public class transaksi extends javax.swing.JFrame {
 //        showTableP();
 //        showTableS();
         showTable();
-        autoproduk();
+        autotransaksi();
         textmati();
         tampil_comboP();
         Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
@@ -69,7 +69,7 @@ public class transaksi extends javax.swing.JFrame {
         
     }
     
-    public void autoproduk() {
+    public void autotransaksi() {
         try {
             String sql = "Select max(right(id_transaksi,3)) as no_auto from transaksi";
             java.sql.Connection conn = (Connection) koneksi.getConnection();
@@ -94,21 +94,6 @@ public class transaksi extends javax.swing.JFrame {
             Logger.getLogger(Stok.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-//    public void showTableP() {
-//        try {
-//            tbmB = new DefaultTableModel(new String[]{ "ID PRODUK","NAMA PRODUK","HARGA PRODUK"}, 0);
-//            ResultSet rs;
-//            rs = db.selectprodukt();
-//            while (rs.next()) {
-//                tbmB.addRow(new Object[]{ rs.getString("id_produk"), rs.getString("nama_produk"), rs.getString("harga_produk")});
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(kelolaproduk.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        tbl_produk.setModel(tbmB);
-//
-//    }
     public void showTable() {
         try {
             tbmB = new DefaultTableModel(new String[]{ "ID PRODUK","NAMA PRODUK","HARGA PRODUK","ID STOK"
@@ -123,23 +108,7 @@ public class transaksi extends javax.swing.JFrame {
             Logger.getLogger(kelolaproduk.class.getName()).log(Level.SEVERE, null, ex);
         }
         tbl_produk.setModel(tbmB);
-
     }
-    
-//    public void showTableS() {
-//        try {
-//            tbmB = new DefaultTableModel(new String[]{ "ID STOK","NAMA STOK"}, 0);
-//            ResultSet rs;
-//            rs = db.selectstok();
-//            while (rs.next()) {
-//                tbmB.addRow(new Object[]{ rs.getString("id_stok"), rs.getString("nama_stok")});
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(kelolaproduk.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        tbl_stok.setModel(tbmB);
-//
-//    }
     
     public void textmati() {
 //       cb_produk.setEnabled(false);
@@ -213,12 +182,15 @@ public class transaksi extends javax.swing.JFrame {
             tabModel.getDataVector().removeAllElements();
             
 //            RsProduk=stt.executeQuery("SELECT * from produk WHERE id_produk LIKE '%"+key+"%' OR nama_produk LIKE '%"+key+"%' OR harga_produk LIKE '%"+key+"%'");  
-             RsProduk=stt.executeQuery("select p.id_produk,nama_produk,harga_produk,id_stok,jumlah_pakai from produk p join detail_produk dp on p.id_produk = dp.id_produk and dp.id_produk LIKE '%"+key+"%' OR p.nama_produk LIKE '%"+key+"%' OR p.harga_produk LIKE '%"+key+"%' OR dp.id_stok LIKE '%" + key + "%'");
+             RsProduk=stt.executeQuery("select p.id_produk,nama_produk,harga_produk,id_stok,jumlah_pakai "
+                     + "from produk p join detail_produk dp on p.id_produk = dp.id_produk and dp.id_produk "
+                     + "LIKE '%"+key+"%' OR p.nama_produk LIKE '%"+key+"%' OR p.harga_produk LIKE '%"+key+"%' OR dp.id_stok LIKE '%" + key + "%'");
             while(RsProduk.next()){
                 Object[] data={
                     RsProduk.getString("id_produk"),
                     RsProduk.getString("nama_produk"),
-                    RsProduk.getString("harga_produk")        
+                    RsProduk.getString("harga_produk"),
+                    RsProduk.getString("id_stok")
                 };
                tabModel.addRow(data);
             }                
@@ -269,8 +241,6 @@ public class transaksi extends javax.swing.JFrame {
         txt_pegawai = new javax.swing.JTextField();
         txt_keterangan = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txt_pendapatan = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
@@ -384,27 +354,15 @@ public class transaksi extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(37, 213, 240));
 
-        jLabel3.setText("PENDAPATAN PERBULAN : ");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 1476, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+            .addGap(0, 48, Short.MAX_VALUE)
         );
 
         jPanel5.setBackground(new java.awt.Color(102, 204, 255));
@@ -740,11 +698,7 @@ public class transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_tbl_produkMouseClicked
 
     private void txt_subtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_subtotalActionPerformed
-        // TODO add your handling code here:
-//        int qty = Integer.parseInt(txt_quantity.getText().toString());
-//        int hrg = Integer.parseInt(txt_harga.getText().toString());
-//        int subtotal = qty*hrg;
-//        txt_subtotal.setText(Integer.toString(subtotal));
+
     }//GEN-LAST:event_txt_subtotalActionPerformed
 
     private void btn_jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jumlahActionPerformed
@@ -758,7 +712,7 @@ public class transaksi extends javax.swing.JFrame {
         tbl_transaksi.setModel(tbmT);
         total();
         reset();
-        autoproduk();
+        autotransaksi();
     }//GEN-LAST:event_btn_jumlahActionPerformed
 
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
@@ -820,15 +774,10 @@ public class transaksi extends javax.swing.JFrame {
         String idt,idb,idp,ids,ket,
                total;
         total = txt_total.getText();
-//        int i = Integer.parseInt(total);
-//        subtotal = txt_subtotal.getText();
-//        int j = Integer.parseInt(subtotal);
         idt = txt_idtransaksi.getText();
-//        idb = txt_idbarang.getText();
         idp = cb_pegawai.getSelectedItem().toString();
         ket = txt_keterangan.getText();
         Integer qty, stok, not_found, empty = 0,subtotal;
-//        db.insertalltransaksi(idt, j, i, idb, idp,ket);
         DefaultTableModel model = (DefaultTableModel) tbl_transaksi.getModel();
         int rowCount = model.getRowCount();
         
@@ -855,7 +804,8 @@ public class transaksi extends javax.swing.JFrame {
                 try {
                     Connection conn = koneksi.getConnection();
                     java.sql.Statement stm = conn.createStatement();
-                    java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM detail_produk,stok WHERE detail_produk.id_stok = stok.id_stok and stok.id_stok = '" + ids + "'");
+                    java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM detail_produk,stok "
+                            + "WHERE detail_produk.id_stok = stok.id_stok and stok.id_stok = '" + ids + "'");
 
                     sql.next();
                     //sql.last();
@@ -883,7 +833,8 @@ public class transaksi extends javax.swing.JFrame {
                     try {
                         Connection conn = koneksi.getConnection();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO detail_transaksi(id_transaksi, id_produk, sub_total,qty) VALUES ('" + idt + "', '" + idb + "', '" + subtotal + "', '" + qty + "')");
+                        stm.executeUpdate("INSERT INTO detail_transaksi(id_transaksi, id_produk, sub_total, qty) "
+                                + "VALUES ('" + idt + "', '" + idb + "', '" + subtotal + "', '" + qty + "')");
                         empty = 1;
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
@@ -904,7 +855,7 @@ public class transaksi extends javax.swing.JFrame {
             }
         }
         reset();
-        autoproduk();
+        autotransaksi();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
@@ -979,7 +930,6 @@ DefaultTableModel tbmT = new DefaultTableModel(kolom,baris);
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1005,7 +955,6 @@ DefaultTableModel tbmT = new DefaultTableModel(kolom,baris);
     private javax.swing.JTextField txt_keterangan;
     private javax.swing.JTextField txt_namabarang;
     private javax.swing.JTextField txt_pegawai;
-    private javax.swing.JTextField txt_pendapatan;
     private javax.swing.JTextField txt_quantity;
     private javax.swing.JTextField txt_stok;
     private javax.swing.JTextField txt_subtotal;
